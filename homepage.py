@@ -17,3 +17,9 @@ exploring behavioral and demographic relationships through three objectives:
 Use the sidebar or page tabs to explore the visuals.  
 Developed by *NOORHAFIZAH BINTI MUHAMMAD*.
 """)
+# Navigation buttons
+st.markdown("---")
+col1, col2 = st.columns([1, 3])
+with col1:
+    st.page_link("pages/1_Demographic_Distribution.py", label="➡ Go to Objective 1", icon="📊")
+
