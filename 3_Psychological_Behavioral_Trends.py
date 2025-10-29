@@ -32,3 +32,11 @@ st.plotly_chart(fig, use_container_width=True)
 
 st.success("Insight: AIS scores positively correlate with BFAS totals, suggesting higher internet use is linked to addiction intensity.")
 
+st.markdown("---")
+col1, col2 = st.columns([2, 1])
+
+with col1:
+    st.page_link("pages/2_Social_Factors_vs_Addiction.py", label="⬅ Previous: Objective 2", icon="📈")
+
+with col2:
+    st.page_link("homepage.py", label="🏠 Back to Home", icon="🏠")
