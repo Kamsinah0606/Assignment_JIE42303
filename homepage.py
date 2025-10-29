@@ -15,5 +15,5 @@ exploring behavioral and demographic relationships through three objectives:
 3. **Psychological and Behavioral Trends**
 
 Use the sidebar or page tabs to explore the visuals.  
-Developed by *[Your Name]*.
+Developed by *NOORHAFIZAH BINTI MUHAMMAD*.
 """)
