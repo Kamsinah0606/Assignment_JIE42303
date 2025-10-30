@@ -1,70 +1,41 @@
 import streamlit as st
-import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
-import plotly.express as px
 
-# -----------------------------
-# Page Config
-# -----------------------------
-st.set_page_config(
-    page_title="The indirect effect of TikTok use on depressive symptoms through insomnia among university students",
-    layout="wide"
-)
+# ------------------------------------------------
+# Page Configuration
+# ------------------------------------------------
+st.set_page_config(page_title="Student Survey", layout="wide")
 
-# -----------------------------
-# Load Data
-# -----------------------------
-DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/refs/heads/main/DataBase.csv"
+# ------------------------------------------------
+# Define Each Page (match exact filenames)
+# ------------------------------------------------
+home = st.Page("homepage.py",
+               title="🏠 Homepage",
+               icon=":material/home:",
+               default=True)
 
-try:
-    df = pd.read_csv(DATA_URL, encoding="utf-8")
-except UnicodeDecodeError:
-    df = pd.read_csv(DATA_URL, encoding="ISO-8859-1", errors="replace")
+objective_1 = st.Page("1_Demographic_Distribution.py",
+                      title="📊 Objective 1: Demographic Distribution",
+                      icon=":material/analytics:")
 
-# -----------------------------
-# Header
-# -----------------------------
-st.title("📊 Scientific Visualization – JIE42303")
+objective_2 = st.Page("2_Social_Factors_vs_Addiction.py",
+                      title="📈 Objective 2: Social Factors vs Addiction",
+                      icon=":material/groups:")
 
-# -------------------------------
-# Define all pages
-# -------------------------------
+objective_3 = st.Page("Psychological_Behavioral_Trends.py",
+                      title="🧠 Objective 3: Psychological & Behavioral Trends",
+                      icon=":material/psychology:")
 
-home = st.Page(
-    "homepage.py", 
-    title="Homepage", 
-    icon=":material/home:", 
-    default=True)
-
-objective_1 = st.Page(
-    "1_Demographic_Distribution.py",
-    title="Objective 1",
-    icon=":material/analytics:",
-    default=True
-)
-
-objective_2 = st.Page(
-    "2_Social_Factors_vs_Addiction.py",
-    title="Objective 2",
-    icon=":material/groups:"
-)
-
-objective_3 = st.Page(
-    "3_Psychological_Behavioral_Trends.py",
-    title="Objective 3",
-    icon=":material/psychology:"
-)
-
-# -----------------------------
+# ------------------------------------------------
 # Navigation Menu
-# -----------------------------
+# ------------------------------------------------
 pg = st.navigation({
     "Menu": [home, objective_1, objective_2, objective_3]
-                   })
+})
 
+# ------------------------------------------------
+# Run the app
+# ------------------------------------------------
 pg.run()
-
 
 # ------------------------------------------------
 # Homepage Content
