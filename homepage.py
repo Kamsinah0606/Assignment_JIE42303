@@ -17,3 +17,16 @@ exploring behavioral and demographic relationships through three objectives:
 Use the sidebar or page tabs to explore the visuals.  
 Developed by *NOORHAFIZAH BINTI MUHAMMAD*.
 """)
+
+visualise_1 = st.Page('1_Demographic_Distribution.py', title='Objective 1', icon=":material/school:")
+
+home = st.Page('homepage.py', title='Homepage', default=True, icon=":material/home:")
+
+# Assuming you meant to define 'pg' as st.navigation
+pg = st.navigation(
+    {
+        "Menu":[home, visualise_1]
+    }
+)
+
+pg.run()
