@@ -12,11 +12,15 @@ df = pd.read_csv(DATA_URL)
 st.subheader("Objective 1:")
 st.info("To analyze the demographic distribution of respondents based on age, gender, and employment type.")
 
+st.markdown("---")
+
 # Visualization 1: Age distribution
 fig, ax = plt.subplots(figsize=(6,4))
 sns.histplot(df["Age"], bins=10, kde=True, ax=ax)
 ax.set_title("Age Distribution of Respondents")
 st.pyplot(fig)
+
+st.markdown("---")
 
 # Visualization 2: Gender ratio
 fig, ax = plt.subplots(figsize=(5,5))
@@ -24,6 +28,8 @@ gender_counts = df["Sex"].value_counts()
 ax.pie(gender_counts, labels=gender_counts.index, autopct="%1.1f%%", startangle=90)
 ax.set_title("Gender Ratio")
 st.pyplot(fig)
+
+st.markdown("---")
 
 # Visualization 3: Employment distribution
 fig, ax = plt.subplots(figsize=(8,4))
