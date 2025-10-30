@@ -6,7 +6,7 @@ import plotly.express as px
 
 st.title("3️⃣ Psychological and Behavioral Trends")
 
-DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/main/DataBase.csv"
+DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/refs/heads/main/DataBase.csv"
 df = pd.read_csv(DATA_URL)
 
 st.subheader("Objective:")
