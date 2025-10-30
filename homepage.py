@@ -26,6 +26,5 @@ st.page_link('pages/2_Social_Factors_vs_Addiction.py', title = 'Objective 2: Soc
 st.page_link('pages/3_Psychological_Behavioral_Trends.py', title = 'Objective 3: Psychological and Behavioral Trends ', icon = ":material/school:")
 
 home = st.Page('homepage.py', title='Homepage', default=True, icon=":material/home:")
-)
 
 pg.run()
