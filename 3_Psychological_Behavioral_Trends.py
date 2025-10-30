@@ -4,7 +4,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import plotly.express as px
 
-st.title("3️⃣ Psychological and Behavioral Trends")
+st.title(" Objective 3 : Psychological and Behavioral Trends")
 
 DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/refs/heads/main/DataBase.csv"
 df = pd.read_csv(DATA_URL)
