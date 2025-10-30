@@ -42,7 +42,7 @@ This dashboard presents three visualization objectives:
 # Navigation Menu
 # -----------------------------
 pg = st.navigation({
-    "Menu": ,["Objective 1","Objective 2","Objective 3"]
+    "Menu": ["Objective 1","Objective 2","Objective 3"]
                    })
 
 # -------------------------------
