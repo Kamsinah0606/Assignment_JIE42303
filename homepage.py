@@ -7,13 +7,15 @@ st.header("Data Visualization",divider="gray")
 
 
 visualise_1 = st.Page('1_Demographic_Distribution.py', title='Objective 1', icon=":material/school:")
+visualise_2 = st.Page('2_Social_Factors_vs_Addiction.py', title = 'Objective 2', icon = ":material/school:")
+visualise_3 = st.Page('3_Psychological_Behavioral_Trends.py', title = 'Objective 3', icon = ":material/school:")
 
 home = st.Page('homepage.py', title='Homepage', default=True, icon=":material/home:")
 
 # Assuming you meant to define 'pg' as st.navigation
 pg = st.navigation(
     {
-        "Menu":[home, visualise_1]
+        "Menu":[home, visualise_1, visualise_2, visualise_2]
     }
 )
 
