@@ -21,9 +21,9 @@ Developed by *NOORHAFIZAH BINTI MUHAMMAD*.
 # Navigation Buttons
 st.markdown("---")
 st.subheader(" Navigate to Objectives:")
-st.page_link('pages/1_Demographic_Distribution.py', title='Objective 1: Demographic Distribution', icon=":material/school:")
-st.page_link('pages/2_Social_Factors_vs_Addiction.py', title = 'Objective 2: Social Factors vs Addiction', icon = ":material/school:")
-st.page_link('pages/3_Psychological_Behavioral_Trends.py', title = 'Objective 3: Psychological and Behavioral Trends ', icon = ":material/school:")
+st.page_link('1_Demographic_Distribution.py', title='Objective 1: Demographic Distribution', icon=":material/school:")
+st.page_link('2_Social_Factors_vs_Addiction.py', title = 'Objective 2: Social Factors vs Addiction', icon = ":material/school:")
+st.page_link('3_Psychological_Behavioral_Trends.py', title = 'Objective 3: Psychological and Behavioral Trends ', icon = ":material/school:")
 
 home = st.Page('homepage.py', title='Homepage', default=True, icon=":material/home:")
 
