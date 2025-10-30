@@ -32,12 +32,3 @@ ax.set_title("Employment Distribution")
 st.pyplot(fig)
 
 st.success("Insight: The dataset is dominated by young adults with varied employment statuses, showing balanced gender representation.")
-
-st.markdown("---")
-col1, col2 = st.columns(2)
-
-with col1:
-    st.page_link("homepage.py", label="⬅ Back to Home", icon="🏠")
-
-with col2:
-    st.page_link("pages/2_Social_Factors_vs_Addiction.py", label="➡ Next: Objective 2", icon="📈")
