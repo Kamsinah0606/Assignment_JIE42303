@@ -9,7 +9,7 @@ st.title("1️⃣ Demographic Distribution")
 DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/main/DataBase.csv"
 df = pd.read_csv(DATA_URL)
 
-st.subheader("Objective:")
+st.subheader("Objective 1:")
 st.info("To analyze the demographic distribution of respondents based on age, gender, and employment type.")
 
 # Visualization 1: Age distribution
