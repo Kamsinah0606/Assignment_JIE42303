@@ -7,7 +7,7 @@ st.title("1️⃣ Demographic Distribution")
 
 # Load dataset
 DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/main/DataBase.xlsx"
-df = pd.read_csv(DATA_URL)
+df = pd.read_excel(DATA_URL)
 
 st.subheader("Objective:")
 st.info("To analyze the demographic distribution of respondents based on age, gender, and employment type.")
