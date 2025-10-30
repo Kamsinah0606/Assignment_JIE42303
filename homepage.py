@@ -8,7 +8,7 @@ st.set_page_config(page_title="The indirect effect of TikTok use on depressive s
 # ------------------------------------------------
 # Define Each Page 
 # ------------------------------------------------
-home = st.Page("main.py",
+home = st.Page("homepage.py",
                title="Homepage",
                icon=":material/home:",
                default=True)
