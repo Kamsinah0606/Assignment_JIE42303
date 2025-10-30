@@ -3,13 +3,13 @@ import streamlit as st
 # ------------------------------------------------
 # Page Configuration
 # ------------------------------------------------
-st.set_page_config(page_title="Student Survey", layout="wide")
+st.set_page_config(page_title="The indirect effect of TikTok use on depressive symptoms through insomnia among university students", layout="wide")
 
 # ------------------------------------------------
-# Define Each Page (match exact filenames)
+# Define Each Page 
 # ------------------------------------------------
 home = st.Page("homepage.py",
-               title="🏠 Homepage",
+               title="Homepage",
                icon=":material/home:",
                default=True)
 
