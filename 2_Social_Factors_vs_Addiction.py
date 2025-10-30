@@ -30,12 +30,3 @@ ax.set_title("Mean BFAS by Employment and Economic Status")
 st.pyplot(fig)
 
 st.success("Insight: BFAS scores vary across social groups — age and employment type appear linked to behavioral addiction patterns.")
-
-st.markdown("---")
-col1, col2 = st.columns(2)
-
-with col1:
-    st.page_link("pages/1_Demographic_Distribution.py", label="⬅ Previous: Objective 1", icon="📊")
-
-with col2:
-    st.page_link("pages/3_Psychological_Behavioral_Trends.py", label="➡ Next: Objective 3", icon="🧠")
