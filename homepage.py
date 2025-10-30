@@ -42,29 +42,29 @@ This dashboard presents three visualization objectives:
 # Navigation Menu
 # -----------------------------
 pg = st.navigation({
-    "Menu": ["Objective 1","Objective 2","Objective 3"]
+    "Menu": [objective_1,objective_2,objective_3]
                    })
 
 # -------------------------------
 # Define all pages
 # -------------------------------
-pages_1 = st.Page(
+objective_1 = st.Page(
     "1_Demographic_Distribution.py",
     title="Objective 1",
     icon=":material/analytics:",
     default=True
 )
 
-pages_2 = st.Page(
+objective_2 = st.Page(
     "2_Social_Factors_vs_Addiction.py",
     title="Objective 2",
-    icon=":material/analytics:"
+    icon=":material/groups:"
 )
 
-pages_3 = st.Page(
+objective_3 = st.Page(
     "3_Psychological_Behavioral_Trends.py",
     title="Objective 3",
-    icon=":material/groups:"
+    icon=":material/psychology:"
 )
 
 # -----------------------------
