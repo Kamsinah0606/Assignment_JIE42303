@@ -38,13 +38,6 @@ This dashboard presents three visualization objectives:
 3️⃣ Psychological and Behavioral Trends
 """)
 
-# -----------------------------
-# Navigation Menu
-# -----------------------------
-pg = st.navigation({
-    "Menu": [objective_1,objective_2,objective_3]
-                   })
-
 # -------------------------------
 # Define all pages
 # -------------------------------
@@ -66,6 +59,13 @@ objective_3 = st.Page(
     title="Objective 3",
     icon=":material/psychology:"
 )
+
+# -----------------------------
+# Navigation Menu
+# -----------------------------
+pg = st.navigation({
+    "Menu": [objective_1,objective_2,objective_3]
+                   })
 
 # -----------------------------
 # Objective 1
