@@ -44,9 +44,9 @@ This dashboard presents three visualization objectives:
 page = st.sidebar.radio(
     "🧭 Select Objective",
     [
-        "Objective 1: Demographic Distribution",
-        "Objective 2: Social Factors vs Addiction",
-        "Objective 3: Psychological & Behavioral Trends"
+        "Objective 1",
+        "Objective 2",
+        "Objective 3"
     ]
 )
 
