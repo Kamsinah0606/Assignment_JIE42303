@@ -1,32 +1,35 @@
 import streamlit as st
 
 st.set_page_config(
-  page_title="The indirect effect of TikTok use on depressive symptoms through insomnia among university students"
+    page_title="The indirect effect of TikTok use on depressive symptoms through insomnia among university students",
+    layout="wide"
 )
-st.header("Data Visualization - JIE42303",divider="gray")
+
+st.header("📊 Scientific Visualization – JIE42303", divider="gray")
 
 st.markdown("""
-Welcome to my scientific visualization dashboard!
+### 🎓 Research Title
+**The indirect effect of TikTok use on depressive symptoms through insomnia among university students**
 
-This project presents data analysis based on a real dataset from **DataBase.xlsx**, 
-exploring behavioral and demographic relationships through three objectives:
-1. **Demographic Distribution**
-2. **Social Factors vs Addiction**
-3. **Psychological and Behavioral Trends**
+### 📘 Project Overview
+This dashboard presents visual analyses based on a real dataset from **DataBase.xlsx**, 
+exploring behavioral and demographic relationships through three main objectives:
 
-Use the sidebar or page tabs to explore the visuals.  
+1️⃣ **Demographic Distribution**  
+2️⃣ **Social Factors vs Addiction**  
+3️⃣ **Psychological and Behavioral Trends**
+
+Use the links below to open each objective page.  
 Developed by *NOORHAFIZAH BINTI MUHAMMAD*.
 """)
 
-# Navigation Buttons
 st.markdown("---")
-st.subheader(" Navigate to Objectives:")
-st.page_link('1_Demographic_Distribution.py', label ='Objective 1: Demographic Distribution')
-st.page_link('2_Social_Factors_vs_Addiction.py', label = 'Objective 2: Social Factors vs Addiction')
-st.page_link('3_Psychological_Behavioral_Trends.py', label = 'Objective 3: Psychological and Behavioral Trends')
+st.subheader("🧭 Navigate to Objectives:")
 
-home = st.Page('homepage.py', title='Homepage', default=True)
+# ✅ Use correct relative paths that include the 'pages/' folder
+st.page_link("pages/1_Demographic_Distribution.py", label="📊 Objective 1: Demographic Distribution")
+st.page_link("pages/2_Social_Factors_vs_Addiction.py", label="📈 Objective 2: Social Factors vs Addiction")
+st.page_link("pages/3_Psychological_Behavioral_Trends.py", label="🧠 Objective 3: Psychological and Behavioral Trends")
 
 st.markdown("---")
-
-pg.run()
+st.caption("© 2025 – Scientific Visualization (JIE42303)")
