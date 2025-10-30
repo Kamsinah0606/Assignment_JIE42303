@@ -15,7 +15,7 @@ st.set_page_config(
 # -----------------------------
 # Load Data
 # -----------------------------
-DATA_URL = "https://raw.githubusercontent.com/<your-username>/Assignment_JIE42303/main/cleaned_dataset.csv"
+DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/refs/heads/main/DataBase.csv"
 
 try:
     df = pd.read_csv(DATA_URL, encoding="utf-8")
