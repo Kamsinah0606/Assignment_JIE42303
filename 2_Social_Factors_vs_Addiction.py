@@ -4,7 +4,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import plotly.express as px
 
-st.title("2️⃣ Social Factors vs Addiction (BFAS Total)")
+st.title("Objective 2 : Social Factors vs Addiction (BFAS Total)")
 
 DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/refs/heads/main/DataBase.csv"
 df = pd.read_csv(DATA_URL)
