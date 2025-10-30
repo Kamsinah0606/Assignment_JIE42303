@@ -26,21 +26,17 @@ except UnicodeDecodeError:
 # Header
 # -----------------------------
 st.title("📊 Scientific Visualization – JIE42303")
-st.write("""
-### 🎓 Research Title
-
-**The indirect effect of TikTok use on depressive symptoms through insomnia among university students**
-
-This dashboard presents three visualization objectives:
-
-1️⃣ Demographic Distribution  
-2️⃣ Social Factors vs Addiction  
-3️⃣ Psychological and Behavioral Trends
-""")
 
 # -------------------------------
 # Define all pages
 # -------------------------------
+
+home = st.Page(
+    "homepage.py", 
+    title="Homepage", 
+    icon=":material/home:", 
+    default=True)
+
 objective_1 = st.Page(
     "1_Demographic_Distribution.py",
     title="Objective 1",
@@ -64,8 +60,24 @@ objective_3 = st.Page(
 # Navigation Menu
 # -----------------------------
 pg = st.navigation({
-    "Menu": [objective_1,objective_2,objective_3]
+    "Menu": [home, objective_1, objective_2, objective_3]
                    })
+
+
+# ------------------------------------------------
+# Homepage Content
+# ------------------------------------------------
+st.title("🎓 Student Survey Data Visualization")
+st.markdown("""
+Welcome to the **Student Survey Dashboard**.
+
+This Streamlit app visualizes and analyzes data from the student survey dataset.  
+Use the navigation menu above to explore each objective:
+
+1️⃣ **Demographic Distribution**  
+2️⃣ **Social Factors vs Addiction**  
+3️⃣ **Psychological & Behavioral Trends**
+""")
 
 # -----------------------------
 # Objective 1
@@ -142,3 +154,5 @@ else:
     fig = px.scatter_3d(df, x="Age", y="BFAS total", z="AIS 0-1", color="Sex",
                         title="3D Relationship: Age, BFAS, AIS")
     st.plotly_chart(fig, use_container_width=True)
+
+pg.run()
