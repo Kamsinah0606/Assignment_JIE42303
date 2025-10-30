@@ -28,9 +28,11 @@ except UnicodeDecodeError:
 st.title("📊 Scientific Visualization – JIE42303")
 st.write("""
 ### 🎓 Research Title
+
 **The indirect effect of TikTok use on depressive symptoms through insomnia among university students**
 
 This dashboard presents three visualization objectives:
+
 1️⃣ Demographic Distribution  
 2️⃣ Social Factors vs Addiction  
 3️⃣ Psychological and Behavioral Trends
