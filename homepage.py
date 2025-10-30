@@ -42,7 +42,7 @@ This dashboard presents three visualization objectives:
 # Sidebar Navigation
 # -----------------------------
 page = st.sidebar.radio(
-    "🧭 Select Objective",
+    "Menu",
     [
         "Objective 1",
         "Objective 2",
