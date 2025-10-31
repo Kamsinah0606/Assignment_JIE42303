@@ -20,6 +20,7 @@ Welcome to the **Student Survey Dashboard** — exploring:
 
 ### 📘 Navigation Guide
 Use the sidebar to explore the three study objectives:
+
 1️⃣ **Demographic Distribution**  
 2️⃣ **Social Factors vs Addiction**  
 3️⃣ **Psychological & Behavioral Trends**
