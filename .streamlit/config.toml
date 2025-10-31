@@ -1,0 +1,7 @@
+[theme]
+base = "light"
+primaryColor = "#d63384"          # rosy pink for highlights (buttons, sliders)
+backgroundColor = "#fff8f9"       # pale pink-beige background
+secondaryBackgroundColor = "#f5e6fa" # lavender-pale for sidebar and boxes
+textColor = "#4a235a"             # deep purple text
+font = "sans serif"
