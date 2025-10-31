@@ -54,7 +54,7 @@ df = load_data()
 # ------------------------------------------------
 # Page 1: Demographic Profile
 # ------------------------------------------------
-st.title("🌸 Objective 1: Demographic Profile")
+st.title("Objective 1: Demographic Profile")
 st.info("To analyze the demographic, economic, and academic distribution of the survey respondents.")
 st.divider()
 
@@ -91,7 +91,7 @@ with col2:
     # --- UPDATED SUMMARY BOX ---
     st.markdown("""
     <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-    <h5 style='color:#4a235a;'>💬 Summary:</h5>
+    <h5 style='color:#4a235a;'>Summary:</h5>
     <p style='color:#4a235a; margin-bottom:0;'>The gender ratio is relatively balanced, with a slightly higher
     proportion of female respondents. This ensures that the analysis can provide
     representative insights across genders.</p>
@@ -136,7 +136,7 @@ with col4:
     # --- UPDATED SUMMARY BOX ---
     st.markdown("""
     <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-    <h5 style='color:#4a235a;'>🎓 Summary:</h5>
+    <h5 style='color:#4a235a;'>Summary:</h5>
     <p style='color:#4a235a; margin-bottom:0;'>This chart shows the academic diversity of the sample,
     highlighting the most common fields of study.</p>
     </div>
@@ -147,7 +147,7 @@ st.divider()
 # --- UPDATED OVERALL SUMMARY BOX ---
 st.markdown("""
 <div style='background-color:#f3e5f5; padding:20px; border-radius:15px; border: 1px solid #d63384;'>
-<h4 style='color:#4a235a;'>🌼 Overall Objective 1 Summary</h4>
+<h4 style='color:#4a235a;'>Overall Objective 1 Summary</h4>
 <p style='color:#4a235a; margin-bottom:0;'>The dataset represents a young, academically diverse
 university population with a balanced gender ratio. Most are students who are
 economically satisfied, providing a stable baseline for analyzing the
