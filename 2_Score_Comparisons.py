@@ -54,15 +54,17 @@ df = load_data()
 # ------------------------------------------------
 st.title("💜 Objective 2: Score Comparisons") 
 
-# --- 1. OBJECTIVE STATEMENT ---
+# --- 1. OBJECTIVE STATEMENT (WITH TITLE) ---
 st.markdown("""
 <div style='background-color:#f5e6fa; padding:15px; border-radius:12px; margin-bottom: 1.0em;'>
+<h5 style='color:#4a235a; margin-bottom: 0.5em;'>Objective Statement</h5>
 <p style='color:#4a235a; margin-bottom:0; font-size: 1.0em;'>
 Exploring how depression, insomnia, and addiction scores gently shift across 
 different social and academic circles.
 </p>
 </div>
 """, unsafe_allow_html=True)
+# --- END OF UPDATE ---
 
 # --- 2. SUMMARY BOX (100-150 words) ---
 st.markdown("""
