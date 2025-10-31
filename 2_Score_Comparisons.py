@@ -25,12 +25,17 @@ sns.set_theme(style="whitegrid", rc=plt.rcParams)
 # ------------------------------------------------
 @st.cache_data
 def load_data():
-    DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/refs/heads/main/DataBase_Preprocessed.csv"
+    # --- THIS IS THE FIX ---
+    # The URL now points to DataBase.csv, which has the 'Employment' column
+    DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/refs/heads/main/DataBase.csv"
+    # --- END FIX ---
+    
     df = pd.read_csv(DATA_URL)
     
     # --- Data Cleaning and Fixing ---
+    # This file has Sex01 AND Sex, but we'll use Sex01 for consistency
     sex_mapping = {0: 'Male', 1: 'Female', 2: 'I Do Not Want To Disclose'}
-    df['Sex'] = df['Sex01'].map(sex_mapping).fillna('Unknown')
+    df['Sex'] = df['Sex01'].map(sex_mapping).fillna(df['Sex'].str.title()) # Fallback to existing 'Sex' col
     
     df = df.rename(columns={
         'PHQ-9 total': 'Depression Score',
@@ -39,6 +44,7 @@ def load_data():
         'Economic status': 'Economic Status'
     })
     
+    # This mapping will now work because 'Employment' exists in the file
     employment_mapping = {
         "I don't work and rely on savings or familial support": "Unemployed (Support)",
         "I engage in casual, part-time work": "Part-time Work",
@@ -53,7 +59,7 @@ df = load_data()
 # ------------------------------------------------
 # Page 2: Score Comparisons
 # ------------------------------------------------
-st.title("💜 Objective 2: Score Comparisons") # Added emoji
+st.title("💜 Objective 2: Score Comparisons") 
 st.info("To examine how depression, insomnia, and addiction levels differ across key demographic and academic groups.")
 st.divider()
 
@@ -64,7 +70,6 @@ col1, col2 = st.columns(2)
 with col1:
     st.subheader("Addiction Score by Gender")
     fig, ax = plt.subplots()
-    # Updated palette to match theme
     sns.boxplot(data=df, x="Sex", y="Addiction Score", ax=ax, palette="RdPu")
     ax.set_xlabel("Gender")
     ax.set_ylabel("Addiction Score (BFAS)")
@@ -79,7 +84,6 @@ with col1:
 with col2:
     st.subheader("Depression Score by Economic Status")
     fig, ax = plt.subplots()
-    # Updated palette to match theme
     sns.violinplot(data=df, x="Economic Status", y="Depression Score", ax=ax, inner="quartile", palette="PuRd")
     ax.set_xlabel("Economic Status")
     ax.set_ylabel("Depression Score (PHQ-9)")
@@ -107,7 +111,6 @@ try:
                   labels={"Year of study": "Year of Study", "Mean_Insomnia": "Average Insomnia Score"})
     fig.update_layout(xaxis={'categoryorder':'array', 'categoryarray': avg_insomnia["Year of study"]},
                       paper_bgcolor=theme_bg, plot_bgcolor=theme_bg, font_color=theme_text)
-    # Updated line color to match theme
     fig.update_traces(line_color=theme_primary)
     st.plotly_chart(fig, use_container_width=True)
     st.markdown("""
