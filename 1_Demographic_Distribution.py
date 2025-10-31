@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 sns.set_theme(style="whitegrid", palette="rocket")
 
-st.title("🌸 Objective 1: Demographic Distribution")
+st.title("Objective 1: Demographic Distribution")
 st.info("To analyze the demographic distribution of respondents based on age, gender, and employment type.")
 
 # Load dataset
@@ -28,7 +28,7 @@ st.pyplot(fig)
 
 st.markdown("""
 <div style='background-color:#f5e6fa; padding:15px; border-radius:12px;'>
-  <h5 style='color:#4a235a;'>📊 Summary:</h5>
+  <h5 style='color:#4a235a;'>Summary:</h5>
   <p style='color:#4a235a;'>Most respondents are young adults, indicating that the data reflects university-age participants with minimal age variation.</p>
 </div>
 """, unsafe_allow_html=True)
@@ -52,7 +52,7 @@ st.pyplot(fig)
 
 st.markdown("""
 <div style='background-color:#f5e6fa; padding:15px; border-radius:12px;'>
-  <h5 style='color:#4a235a;'>💬 Summary:</h5>
+  <h5 style='color:#4a235a;'>Summary:</h5>
   <p style='color:#4a235a;'>Gender distribution is relatively balanced, allowing fair comparisons between male and female respondents.</p>
 </div>
 """, unsafe_allow_html=True)
@@ -69,7 +69,7 @@ st.pyplot(fig)
 
 st.markdown("""
 <div style='background-color:#f5e6fa; padding:15px; border-radius:12px;'>
-  <h5 style='color:#4a235a;'>📈 Summary:</h5>
+  <h5 style='color:#4a235a;'>Summary:</h5>
   <p style='color:#4a235a;'>Most respondents are either students or part-time workers, highlighting typical student lifestyles.</p>
 </div>
 """, unsafe_allow_html=True)
@@ -79,7 +79,7 @@ st.divider()
 # Final Summary
 st.markdown("""
 <div style='background-color:#f3e5f5; padding:20px; border-radius:15px;'>
-  <h4 style='color:#4a235a;'>🌼 Overall Objective 1 Summary</h4>
+  <h4 style='color:#4a235a;'>#Overall Objective 1 Summary</h4>
   <p style='color:#4a235a;'>This demographic overview sets a foundation for behavioral and psychological analysis, showing young, balanced, and diverse participants.</p>
 </div>
 """, unsafe_allow_html=True)
