@@ -27,11 +27,9 @@ sns.set_theme(style="whitegrid", rc=plt.rcParams)
 # ------------------------------------------------
 @st.cache_data
 def load_data():
-    # --- UPDATED DATA URL ---
     DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/main/Insomnic%20.csv"
     df = pd.read_csv(DATA_URL)
     
-    # Standardize string columns for consistent plotting
     df['Sex'] = df['Sex'].str.title()
     df['Economic status'] = df['Economic status'].replace({'Satisfy': 'Satisfied', 'Dissatisfy': 'Dissatisfied'})
     
@@ -69,14 +67,17 @@ st.divider()
 # --- 3. VISUALIZATIONS & INTERPRETATION ---
 st.subheader("Visualizations & Interpretation")
 
-# --- V1: Insomnia vs. Depression (Scatter Plot) ---
+# --- V1: Insomnia vs. Depression (Scatter Plot) (GRID UPDATED) ---
 st.subheader("Insomnia Score vs. Depression Score")
 fig = px.scatter(df, x="AIS total", y="PHQ-9 total", 
                  trendline="ols", trendline_color_override=theme_primary,
                  title="Strong Positive Correlation",
                  color_discrete_sequence=[theme_purple]) 
+# --- THIS IS THE UPDATE ---
 fig.update_layout(xaxis_title="Insomnia Score (AIS)", yaxis_title="Depression Score (PHQ-9)",
-                  paper_bgcolor=theme_bg, plot_bgcolor=theme_bg, font_color=theme_text)
+                  paper_bgcolor=theme_bg, plot_bgcolor=theme_bg, font_color=theme_text,
+                  yaxis_gridcolor='#f5e6fa', xaxis_gridcolor='#f5e6fa') # Set grid color
+# --- END OF UPDATE ---
 st.plotly_chart(fig, use_container_width=True)
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
@@ -90,16 +91,17 @@ poor sleep and depressive symptoms.</p>
 
 st.divider()
 
-# --- V2: Addiction vs. Insomnia (Scatter Plot) (FIXED) ---
+# --- V2: Addiction vs. Insomnia (Scatter Plot) (GRID UPDATED) ---
 st.subheader("Addiction Score vs. Insomnia Score")
 color_map = {"Male": theme_purple, "Female": theme_primary, "I Do Not Want To Disclose": "#bfa0c6"}
 fig = px.scatter(df, x="AIS total", y="BFAS total", color="Sex",
                  trendline="ols", title="Moderate Positive Correlation by Gender",
                  color_discrete_map=color_map)
-# --- THIS LINE IS NOW FIXED ---
+# --- THIS IS THE UPDATE ---
 fig.update_layout(xaxis_title="Insomnia Score (AIS)", yaxis_title="Addiction Score (BFAS)",
-                  paper_bgcolor=theme_bg, plot_bgcolor=theme_bg, font_color=theme_text)
-# --- END OF FIX ---
+                  paper_bgcolor=theme_bg, plot_bgcolor=theme_bg, font_color=theme_text,
+                  yaxis_gridcolor='#f5e6fa', xaxis_gridcolor='#f5e6fa') # Set grid color
+# --- END OF UPDATE ---
 st.plotly_chart(fig, use_container_width=True)
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
@@ -114,6 +116,7 @@ females (pink) are more represented in the high-score quadrant.</p>
 st.divider()
 
 # --- V3: Correlation Heatmap ---
+# This plot (Seaborn) already uses the correct grid from rcParams
 st.subheader("Correlation Matrix of Key Variables")
 corr_cols = ['PHQ-9 total', 'AIS total', 'BFAS total', 'Age', 'Sex01']
 corr_matrix = df[corr_cols].corr()
