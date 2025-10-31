@@ -38,5 +38,6 @@ pg = st.navigation({
     "Menu": [objective_1, objective_2, objective_3]
 })
 
-st.set_option('deprecation.showPyplotGlobalUse', False)
+# st.set_option('deprecation.showPyplotGlobalUse', False)  <-- DELETE THIS LINE
+
 pg.run()
