@@ -4,17 +4,17 @@ import streamlit as st
 # Page Configuration
 # ------------------------------------------------
 st.set_page_config(
-    page_title="TikTok Use Study – Student Survey",
+    page_title="The Indirect Effect of TikTok Use on Depressive Symptoms through Insomnia among University Students",
     layout="wide"
 )
 
 # ------------------------------------------------
-# Define All Pages (Now includes mainpage)
+# Define All Pages (including mainpage)
 # ------------------------------------------------
 mainpage = st.Page("mainpage.py",
                    title="Main Page",
                    icon=":material/home:",
-                   default=True)  # Start here
+                   default=True)
 
 objective_1 = st.Page("1_Demographic_Distribution.py",
                       title="Objective 1: Demographic Distribution",
@@ -36,6 +36,6 @@ pg = st.navigation({
 })
 
 # ------------------------------------------------
-# Run the app
+# Run the App
 # ------------------------------------------------
 pg.run()
