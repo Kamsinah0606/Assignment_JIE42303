@@ -23,46 +23,17 @@ plt.rcParams['grid.color'] = '#f5e6fa'
 sns.set_theme(style="whitegrid", rc=plt.rcParams)
 
 # ------------------------------------------------
-# Data Loading and Cleaning Function (from Colab)
+# Data Loading Function (Simplified)
 # ------------------------------------------------
 @st.cache_data
 def load_data():
-    DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/refs/heads/main/DataBase.csv"
+    # --- UPDATED DATA URL ---
+    DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/main/Insomnic%20.csv"
     df = pd.read_csv(DATA_URL)
     
-    # 1. Remove duplicates
-    df = df.drop_duplicates()
-
-    # 2. Handle missing values
-    df = df.fillna(df.mean(numeric_only=True))
-    df = df.fillna(df.mode().iloc[0])
-
-    # 3. Handle outliers (cap at 3 std dev)
-    for col in df.select_dtypes(include=np.number).columns:
-        upper = df[col].mean() + 3*df[col].std()
-        lower = df[col].mean() - 3*df[col].std()
-        df[col] = np.where((df[col] > upper) | (df[col] < lower), df[col].median(), df[col])
-    
-    # 4. Create new 'Employment_Simplified' column
-    employment_mapping = {
-        "I don't work and rely on savings or familial support": 'A',
-        "I engage in casual, part-time work": 'B',
-        "I work full-time": 'C',
-        "I don't work and rely on scholarships": 'D'
-    }
-    df['Employment_Simplified'] = df['Employment'].replace(employment_mapping)
-    
-    # 5. Map Sex column
-    sex_mapping = {0: 'Male', 1: 'Female', 2: 'I Do Not Want To Disclose'}
-    df['Sex'] = df['Sex01'].map(sex_mapping).fillna(df['Sex'].str.title())
-    
-    # 6. Rename score columns for clarity
-    df = df.rename(columns={
-        'PHQ-9 total': 'Depression Score',
-        'AIS total': 'Insomnia Score',
-        'BFAS total': 'Addiction Score',
-        'Economic status': 'Economic Status'
-    })
+    # Standardize string columns for consistent plotting
+    df['Sex'] = df['Sex'].str.title()
+    df['Economic status'] = df['Economic status'].replace({'Satisfy': 'Satisfied', 'Dissatisfy': 'Dissatisfied'})
     
     return df
 
@@ -98,9 +69,10 @@ st.divider()
 # --- 3. VISUALIZATIONS & INTERPRETATION ---
 st.subheader("Visualizations & Interpretation")
 
-# --- V1: Insomnia vs. Depression (Scatter Plot) ---
+# --- V1: Insomnia vs. Depression (Scatter Plot) (UPDATED) ---
 st.subheader("Insomnia Score vs. Depression Score")
-fig = px.scatter(df, x="Insomnia Score", y="Depression Score", 
+# Updated to use 'AIS total' and 'PHQ-9 total'
+fig = px.scatter(df, x="AIS total", y="PHQ-9 total", 
                  trendline="ols", trendline_color_override=theme_primary,
                  title="Strong Positive Correlation",
                  color_discrete_sequence=[theme_purple]) 
@@ -119,14 +91,15 @@ poor sleep and depressive symptoms.</p>
 
 st.divider()
 
-# --- V2: Addiction vs. Insomnia (Scatter Plot) ---
+# --- V2: Addiction vs. Insomnia (Scatter Plot) (UPDATED) ---
 st.subheader("Addiction Score vs. Insomnia Score")
 color_map = {"Male": theme_purple, "Female": theme_primary, "I Do Not Want To Disclose": "#bfa0c6"}
-fig = px.scatter(df, x="Insomnia Score", y="Addiction Score", color="Sex",
+# Updated to use 'AIS total' and 'BFAS total'
+fig = px.scatter(df, x="AIS total", y="BFAS total", color="Sex",
                  trendline="ols", title="Moderate Positive Correlation by Gender",
                  color_discrete_map=color_map)
 fig.update_layout(xaxis_title="Insomnia Score (AIS)", yaxis_title="Addiction Score (BFAS)",
-                  paper_bgcolor=theme_bg, plot_bgcolor=theme_bg, font_color=theme_text)
+                  paper_bgcolor=theme_bg, plot_bgcolor=theme_bg, font_color=text_color)
 st.plotly_chart(fig, use_container_width=True)
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
@@ -140,9 +113,10 @@ females (pink) are more represented in the high-score quadrant.</p>
 
 st.divider()
 
-# --- V3: Correlation Heatmap ---
+# --- V3: Correlation Heatmap (UPDATED) ---
 st.subheader("Correlation Matrix of Key Variables")
-corr_cols = ['Depression Score', 'Insomnia Score', 'Addiction Score', 'Age', 'Sex01']
+# Updated to use original column names, matching your Colab script
+corr_cols = ['PHQ-9 total', 'AIS total', 'BFAS total', 'Age', 'Sex01']
 corr_matrix = df[corr_cols].corr()
 
 fig, ax = plt.subplots(figsize=(8, 6))
