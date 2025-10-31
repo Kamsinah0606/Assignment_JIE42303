@@ -53,7 +53,7 @@ df = load_data()
 # ------------------------------------------------
 # Page 3: Correlation Analysis
 # ------------------------------------------------
-st.title("💖 Objective 3: Correlation Analysis") 
+st.title("Objective 3: Correlation Analysis") 
 
 st.markdown("""
 <div style='background-color:#f5e6fa; padding:15px; border-radius:12px; margin-bottom: 1.0em;'>
@@ -76,7 +76,7 @@ fig.update_layout(xaxis_title="Insomnia Score (AIS)", yaxis_title="Depression Sc
 st.plotly_chart(fig, use_container_width=True)
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-<h5 style='color:#4a235a;'>🔗 Summary:</h5>
+<h5 style='color:#4a235a;'>Summary:</h5>
 <p style='color:#4a235a; margin-bottom:0;'>This plot reveals a strong, positive linear relationship. As
 Insomnia Scores increase, Depression Scores tend to increase as well. The
 tight clustering around the trendline suggests a powerful link between
@@ -97,7 +97,7 @@ fig.update_layout(xaxis_title="Insomnia Score (AIS)", yaxis_title="Addiction Sco
 st.plotly_chart(fig, use_container_width=True)
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-<h5 style='color:#4a235a;'>📱 Summary:</h5>
+<h5 style='color:#4a235a;'>Summary:</h5>
 <p style='color:#4a235a; margin-bottom:0;'>A moderate positive correlation is also visible here. Higher
 insomnia is linked to higher addiction scores. By coloring for gender,
 we can observe that the relationship holds for all groups, though
@@ -134,7 +134,7 @@ st.divider()
 # --- Overall Summary Box ---
 st.markdown("""
 <div style='background-color:#f3e5f5; padding:20px; border-radius:15px; border: 1px solid #d63384;'>
-<h4 style='color:#4a235a;'>🧠 Overall Objective 3 Summary</h4>
+<h4 style='color:#4a235a;'>Overall Objective 3 Summary</h4>
 <p style='color:#4a235a; margin-bottom:0;'>The findings strongly indicate that these
 conditions are highly interconnected. The most significant relationship is
 between insomnia and depression, suggesting a co-aggravating cycle.
