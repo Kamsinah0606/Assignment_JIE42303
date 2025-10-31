@@ -5,28 +5,41 @@ import matplotlib.pyplot as plt
 import plotly.express as px
 
 # ------------------------------------------------
+# Theme & Plot Settings
+# ------------------------------------------------
+# Set Matplotlib/Seaborn backgrounds to match Streamlit
+theme_bg = "#fff8f9"
+theme_text = "#4a235a"
+theme_primary = "#d63384"
+
+plt.rcParams['figure.facecolor'] = theme_bg
+plt.rcParams['axes.facecolor'] = theme_bg
+plt.rcParams['text.color'] = theme_text
+plt.rcParams['axes.labelcolor'] = theme_text
+plt.rcParams['xtick.color'] = theme_text
+plt.rcParams['ytick.color'] = theme_text
+plt.rcParams['grid.color'] = '#f5e6fa' # Light purple grid
+sns.set_theme(style="whitegrid", rc=plt.rcParams)
+
+# ------------------------------------------------
 # Data Loading and Cleaning Function
 # ------------------------------------------------
 @st.cache_data
 def load_data():
-    DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/refs/heads/main/DataBase.csv"
+    DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/refs/heads/main/DataBase_Preprocessed.csv"
     df = pd.read_csv(DATA_URL)
     
     # --- Data Cleaning and Fixing ---
-    # Fix the 'Sex' column by mapping 'Sex01'
-    # This was the cause of your original KeyError
     sex_mapping = {0: 'Male', 1: 'Female', 2: 'I Do Not Want To Disclose'}
     df['Sex'] = df['Sex01'].map(sex_mapping).fillna('Unknown')
     
-    # Rename key columns for clarity in plots
     df = df.rename(columns={
         'PHQ-9 total': 'Depression Score',
         'AIS total': 'Insomnia Score',
         'BFAS total': 'Addiction Score',
-        'Economic status': 'Economic Status' # Fix spacing
+        'Economic status': 'Economic Status'
     })
     
-    # Shorten 'Employment' for plots
     employment_mapping = {
         "I don't work and rely on savings or familial support": "Unemployed (Support)",
         "I engage in casual, part-time work": "Part-time Work",
@@ -41,7 +54,7 @@ df = load_data()
 # ------------------------------------------------
 # Page 1: Demographic Profile
 # ------------------------------------------------
-st.title("👤 Objective 1: Demographic Profile")
+st.title("🌸 Objective 1: Demographic Profile") # Added emoji
 st.info("To analyze the demographic, economic, and academic distribution of the survey respondents.")
 st.divider()
 
@@ -52,7 +65,8 @@ col1, col2 = st.columns([1, 1])
 with col1:
     st.subheader("Age Distribution of Respondents")
     fig, ax = plt.subplots()
-    sns.histplot(df["Age"], bins=10, kde=True, ax=ax)
+    # Updated color to match theme
+    sns.histplot(df["Age"], bins=10, kde=True, ax=ax, color=theme_primary)
     ax.set_xlabel("Age")
     ax.set_ylabel("Frequency")
     st.pyplot(fig)
@@ -67,9 +81,12 @@ with col2:
     st.subheader("Gender Distribution")
     gender_counts = df["Sex"].value_counts().reset_index()
     gender_counts.columns = ['Sex', 'Count']
+    # Added theme colors
     fig = px.pie(gender_counts, values='Count', names='Sex', 
-                 title="Respondent Gender", hole=0.3)
-    fig.update_layout(showlegend=True)
+                 title="Respondent Gender", hole=0.3,
+                 color_discrete_sequence=["#d63384", "#8a4baf", "#f5e6fa"]) # Pink, Purple, Light Purple
+    # Updated background to match theme
+    fig.update_layout(paper_bgcolor=theme_bg, plot_bgcolor=theme_bg, font_color=theme_text)
     st.plotly_chart(fig, use_container_width=True)
     st.markdown("""
     **Summary:** The gender ratio is relatively balanced, with a slightly higher
@@ -86,7 +103,8 @@ col3, col4 = st.columns([2, 1])
 with col3:
     st.subheader("Employment vs. Economic Status")
     fig, ax = plt.subplots(figsize=(10, 6))
-    sns.countplot(data=df, x="Employment", hue="Economic Status", ax=ax, palette="Blues_r")
+    # Updated palette to match theme
+    sns.countplot(data=df, x="Employment", hue="Economic Status", ax=ax, palette="RdPu")
     ax.set_xlabel("Employment Status")
     ax.set_ylabel("Count")
     ax.tick_params(axis='x', rotation=15)
@@ -104,8 +122,10 @@ with col4:
     study_counts = df["Field of study"].value_counts().head(10).reset_index()
     study_counts.columns = ['Field', 'Count']
     fig = px.bar(study_counts, x='Count', y='Field', orientation='h',
-                 title="Top 10 Fields of Study")
-    fig.update_layout(yaxis={'categoryorder':'total ascending'})
+                 title="Top 10 Fields of Study",
+                 color_discrete_sequence=[theme_primary]) # Updated color
+    fig.update_layout(yaxis={'categoryorder':'total ascending'},
+                      paper_bgcolor=theme_bg, plot_bgcolor=theme_bg, font_color=theme_text)
     st.plotly_chart(fig, use_container_width=True)
     st.markdown("""
     **Summary:** This chart shows the academic diversity of the sample,
