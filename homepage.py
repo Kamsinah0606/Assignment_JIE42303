@@ -11,10 +11,6 @@ st.set_page_config(
 # ------------------------------------------------
 # Define All Pages (including mainpage)
 # ------------------------------------------------
-mainpage = st.Page("mainpage.py",
-                   title="Main Page",
-                   icon=":material/home:",
-                   default=True)
 
 objective_1 = st.Page("1_Demographic_Distribution.py",
                       title="Objective 1: Demographic Distribution",
@@ -32,7 +28,7 @@ objective_3 = st.Page("3_Psychological_Behavioral_Trends.py",
 # Navigation Menu
 # ------------------------------------------------
 pg = st.navigation({
-    "Menu": [mainpage, objective_1, objective_2, objective_3]
+    "Menu": [objective_1, objective_2, objective_3]
 })
 
 # ------------------------------------------------
