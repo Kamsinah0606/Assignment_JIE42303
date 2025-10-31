@@ -56,7 +56,18 @@ df = load_data()
 # Page 3: Correlation Analysis
 # ------------------------------------------------
 st.title("💖 Objective 3: Correlation Analysis") 
-st.info("To investigate the relationships between the key psychological and behavioral scores.")
+
+# --- UPDATED OBJECTIVE BOX ---
+# Replaced st.info() with a themed markdown box
+st.markdown("""
+<div style='background-color:#f5e6fa; padding:15px; border-radius:12px; margin-bottom: 1.0em;'>
+<p style='color:#4a235a; margin-bottom:0; font-size: 1.0em;'>
+Uncovering the delicate connections between the key psychological and behavioral scores.
+</p>
+</div>
+""", unsafe_allow_html=True)
+# --- END OF UPDATE ---
+
 st.divider()
 
 col1, col2 = st.columns(2)
@@ -71,7 +82,6 @@ with col1:
     fig.update_layout(xaxis_title="Insomnia Score (AIS)", yaxis_title="Depression Score (PHQ-9)",
                       paper_bgcolor=theme_bg, plot_bgcolor=theme_bg, font_color=theme_text)
     st.plotly_chart(fig, use_container_width=True)
-    # --- UPDATED SUMMARY BOX ---
     st.markdown("""
     <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
     <h5 style='color:#4a235a;'>🔗 Summary:</h5>
@@ -92,7 +102,6 @@ with col2:
     fig.update_layout(xaxis_title="Insomnia Score (AIS)", yaxis_title="Addiction Score (BFAS)",
                       paper_bgcolor=theme_bg, plot_bgcolor=theme_bg, font_color=theme_text)
     st.plotly_chart(fig, use_container_width=True)
-    # --- UPDATED SUMMARY BOX ---
     st.markdown("""
     <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
     <h5 style='color:#4a235a;'>📱 Summary:</h5>
@@ -115,7 +124,6 @@ sns.heatmap(corr_matrix, annot=True, cmap="RdPu", center=0, fmt=".2f",
             linewidths=.5, ax=ax)
 ax.set_title("Heatmap of Numeric Correlations")
 st.pyplot(fig)
-# --- UPDATED SUMMARY BOX ---
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
 <h5 style='color:#4a235a;'>Matrix Summary:</h5>
