@@ -19,12 +19,7 @@ st.markdown("---")
 
 # Visualization 4: Boxplot
 fig, ax = plt.subplots(figsize=(6,4))
-sns.boxplot(x="Sex", y="BFAS total", data=df, ax=ax, 
-            color_discrete_map={
-        "Female": "red",
-        "Male": "blue",
-        "I do not want to disclose": "purple"
-    }
+sns.boxplot(x="Sex", y="BFAS total",data=df, ax=ax, 
            )
 ax.set_title("BFAS Total by Gender")
 st.pyplot(fig)
