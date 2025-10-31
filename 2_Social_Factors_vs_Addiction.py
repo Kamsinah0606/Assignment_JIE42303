@@ -34,7 +34,7 @@ st.markdown("---")
 # Visualization 6: Heatmap
 pivot = df.pivot_table(index="Employment", columns="Economic status", values="BFAS total", aggfunc="mean")
 fig, ax = plt.subplots(figsize=(10,6))
-sns.heatmap(pivot, annot=True, cmap="YlGnBu", ax=ax)
+sns.heatmap(pivot, annot=True, cmap="Purples", ax=ax)
 ax.set_title("Mean BFAS by Employment and Economic Status")
 st.pyplot(fig)
 
