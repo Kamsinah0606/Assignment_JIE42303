@@ -23,6 +23,3 @@ Developed by **NOORHAFIZAH BINTI MUHAMMAD**
 Course: *Data Mining and Applications (JIE42303)*  
 University Malaysia Kelantan
 """)
-
-st.image("https://upload.wikimedia.org/wikipedia/en/2/28/TikTok_logo.svg", width=120)
-st.success("➡ Select an objective from the sidebar to begin exploring.")
