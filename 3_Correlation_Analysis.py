@@ -26,12 +26,13 @@ sns.set_theme(style="whitegrid", rc=plt.rcParams)
 # ------------------------------------------------
 @st.cache_data
 def load_data():
+    # Use the full DataBase.csv file
     DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/refs/heads/main/DataBase.csv"
     df = pd.read_csv(DATA_URL)
     
     # --- Data Cleaning and Fixing ---
     sex_mapping = {0: 'Male', 1: 'Female', 2: 'I Do Not Want To Disclose'}
-    df['Sex'] = df['Sex01'].map(sex_mapping).fillna('Unknown')
+    df['Sex'] = df['Sex01'].map(sex_mapping).fillna(df['Sex'].str.title())
     
     df = df.rename(columns={
         'PHQ-9 total': 'Depression Score',
@@ -54,50 +55,53 @@ df = load_data()
 # ------------------------------------------------
 # Page 3: Correlation Analysis
 # ------------------------------------------------
-st.title("💖 Objective 3: Correlation Analysis") # Added emoji
+st.title("💖 Objective 3: Correlation Analysis") 
 st.info("To investigate the relationships between the key psychological and behavioral scores.")
 st.divider()
 
-# --- Layout ---
 col1, col2 = st.columns(2)
 
 # --- V1: Insomnia vs. Depression (Scatter Plot) ---
 with col1:
     st.subheader("Insomnia Score vs. Depression Score")
-    # Updated trendline color
     fig = px.scatter(df, x="Insomnia Score", y="Depression Score", 
                      trendline="ols", trendline_color_override=theme_primary,
                      title="Strong Positive Correlation",
-                     color_discrete_sequence=[theme_purple]) # Updated dot color
-    # Updated background
+                     color_discrete_sequence=[theme_purple]) 
     fig.update_layout(xaxis_title="Insomnia Score (AIS)", yaxis_title="Depression Score (PHQ-9)",
                       paper_bgcolor=theme_bg, plot_bgcolor=theme_bg, font_color=theme_text)
     st.plotly_chart(fig, use_container_width=True)
+    # --- UPDATED SUMMARY BOX ---
     st.markdown("""
-    **Summary:** This plot reveals a strong, positive linear relationship. As
+    <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
+    <h5 style='color:#4a235a;'>🔗 Summary:</h5>
+    <p style='color:#4a235a; margin-bottom:0;'>This plot reveals a strong, positive linear relationship. As
     Insomnia Scores increase, Depression Scores tend to increase as well. The
     tight clustering around the trendline suggests a powerful link between
-    poor sleep and depressive symptoms.
-    """)
+    poor sleep and depressive symptoms.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
 # --- V2: Addiction vs. Insomnia (Scatter Plot) ---
 with col2:
     st.subheader("Addiction Score vs. Insomnia Score")
-    # Added theme-based color map for gender
     color_map = {"Male": theme_purple, "Female": theme_primary, "I Do Not Want To Disclose": "#bfa0c6"}
     fig = px.scatter(df, x="Insomnia Score", y="Addiction Score", color="Sex",
                      trendline="ols", title="Moderate Positive Correlation by Gender",
                      color_discrete_map=color_map)
-    # Updated background
     fig.update_layout(xaxis_title="Insomnia Score (AIS)", yaxis_title="Addiction Score (BFAS)",
                       paper_bgcolor=theme_bg, plot_bgcolor=theme_bg, font_color=theme_text)
     st.plotly_chart(fig, use_container_width=True)
+    # --- UPDATED SUMMARY BOX ---
     st.markdown("""
-    **Summary:** A moderate positive correlation is also visible here. Higher
+    <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
+    <h5 style='color:#4a235a;'>📱 Summary:</h5>
+    <p style='color:#4a235a; margin-bottom:0;'>A moderate positive correlation is also visible here. Higher
     insomnia is linked to higher addiction scores. By coloring for gender,
     we can observe that the relationship holds for all groups, though
-    females (pink) are more represented in the high-score quadrant.
-    """)
+    females (pink) are more represented in the high-score quadrant.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
 st.divider()
 
@@ -107,26 +111,34 @@ corr_cols = ['Depression Score', 'Insomnia Score', 'Addiction Score', 'Age', 'Se
 corr_matrix = df[corr_cols].corr()
 
 fig, ax = plt.subplots(figsize=(8, 6))
-# Updated heatmap color map (cmap) to match theme
 sns.heatmap(corr_matrix, annot=True, cmap="RdPu", center=0, fmt=".2f",
             linewidths=.5, ax=ax)
 ax.set_title("Heatmap of Numeric Correlations")
 st.pyplot(fig)
+# --- UPDATED SUMMARY BOX ---
 st.markdown("""
-**Summary:** The heatmap provides a powerful summary.
-- **Insomnia & Depression (0.64):** Confirms the strong positive correlation seen in the scatter plot.
-- **Insomnia & Addiction (0.42):** Confirms the moderate positive correlation.
-- **Age:** Age shows a slight negative correlation with all three scores,
+<div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
+<h5 style='color:#4a235a;'>Matrix Summary:</h5>
+<p style='color:#4a235a; margin-bottom:0;'>The heatmap provides a powerful summary.
+<br>• <b>Insomnia & Depression (0.64):</b> Confirms the strong positive correlation.
+<br>• <b>Insomnia & Addiction (0.42):</b> Confirms the moderate positive correlation.
+<br>• <b>Age:</b> Age shows a slight negative correlation with all three scores,
 suggesting that older students in this sample tended to report slightly
-better mental health and lower addiction.
-""")
+better mental health and lower addiction.</p>
+</div>
+""", unsafe_allow_html=True)
 
 st.divider()
-st.success("""
-**🧠 Overall Objective 3 Summary:** The findings strongly indicate that these
+
+# --- UPDATED OVERALL SUMMARY BOX ---
+st.markdown("""
+<div style='background-color:#f3e5f5; padding:20px; border-radius:15px; border: 1px solid #d63384;'>
+<h4 style='color:#4a235a;'>🧠 Overall Objective 3 Summary</h4>
+<p style='color:#4a235a; margin-bottom:0;'>The findings strongly indicate that these
 conditions are highly interconnected. The most significant relationship is
 between insomnia and depression, suggesting a co-aggravating cycle.
 Social media addiction is also part of this negative cluster,
 correlating with both poor sleep and depression. This highlights a
-critical interplay between sleep, mental health, and digital behavior.
-""")
+critical interplay between sleep, mental health, and digital behavior.</p>
+</div>
+""", unsafe_allow_html=True)
