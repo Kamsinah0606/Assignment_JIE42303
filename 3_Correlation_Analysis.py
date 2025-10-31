@@ -5,11 +5,28 @@ import matplotlib.pyplot as plt
 import plotly.express as px
 
 # ------------------------------------------------
+# Theme & Plot Settings
+# ------------------------------------------------
+theme_bg = "#fff8f9"
+theme_text = "#4a235a"
+theme_primary = "#d63384"
+theme_purple = "#8a4baf"
+
+plt.rcParams['figure.facecolor'] = theme_bg
+plt.rcParams['axes.facecolor'] = theme_bg
+plt.rcParams['text.color'] = theme_text
+plt.rcParams['axes.labelcolor'] = theme_text
+plt.rcParams['xtick.color'] = theme_text
+plt.rcParams['ytick.color'] = theme_text
+plt.rcParams['grid.color'] = '#f5e6fa'
+sns.set_theme(style="whitegrid", rc=plt.rcParams)
+
+# ------------------------------------------------
 # Data Loading and Cleaning Function
 # ------------------------------------------------
 @st.cache_data
 def load_data():
-    DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/refs/heads/main/DataBase.csv"
+    DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/refs/heads/main/DataBase_Preprocessed.csv"
     df = pd.read_csv(DATA_URL)
     
     # --- Data Cleaning and Fixing ---
@@ -37,7 +54,7 @@ df = load_data()
 # ------------------------------------------------
 # Page 3: Correlation Analysis
 # ------------------------------------------------
-st.title("🔬 Objective 3: Correlation Analysis")
+st.title("💖 Objective 3: Correlation Analysis") # Added emoji
 st.info("To investigate the relationships between the key psychological and behavioral scores.")
 st.divider()
 
@@ -47,10 +64,14 @@ col1, col2 = st.columns(2)
 # --- V1: Insomnia vs. Depression (Scatter Plot) ---
 with col1:
     st.subheader("Insomnia Score vs. Depression Score")
+    # Updated trendline color
     fig = px.scatter(df, x="Insomnia Score", y="Depression Score", 
-                     trendline="ols", trendline_color_override="red",
-                     title="Strong Positive Correlation")
-    fig.update_layout(xaxis_title="Insomnia Score (AIS)", yaxis_title="Depression Score (PHQ-9)")
+                     trendline="ols", trendline_color_override=theme_primary,
+                     title="Strong Positive Correlation",
+                     color_discrete_sequence=[theme_purple]) # Updated dot color
+    # Updated background
+    fig.update_layout(xaxis_title="Insomnia Score (AIS)", yaxis_title="Depression Score (PHQ-9)",
+                      paper_bgcolor=theme_bg, plot_bgcolor=theme_bg, font_color=theme_text)
     st.plotly_chart(fig, use_container_width=True)
     st.markdown("""
     **Summary:** This plot reveals a strong, positive linear relationship. As
@@ -62,15 +83,20 @@ with col1:
 # --- V2: Addiction vs. Insomnia (Scatter Plot) ---
 with col2:
     st.subheader("Addiction Score vs. Insomnia Score")
+    # Added theme-based color map for gender
+    color_map = {"Male": theme_purple, "Female": theme_primary, "I Do Not Want To Disclose": "#bfa0c6"}
     fig = px.scatter(df, x="Insomnia Score", y="Addiction Score", color="Sex",
-                     trendline="ols", title="Moderate Positive Correlation by Gender")
-    fig.update_layout(xaxis_title="Insomnia Score (AIS)", yaxis_title="Addiction Score (BFAS)")
+                     trendline="ols", title="Moderate Positive Correlation by Gender",
+                     color_discrete_map=color_map)
+    # Updated background
+    fig.update_layout(xaxis_title="Insomnia Score (AIS)", yaxis_title="Addiction Score (BFAS)",
+                      paper_bgcolor=theme_bg, plot_bgcolor=theme_bg, font_color=theme_text)
     st.plotly_chart(fig, use_container_width=True)
     st.markdown("""
     **Summary:** A moderate positive correlation is also visible here. Higher
     insomnia is linked to higher addiction scores. By coloring for gender,
     we can observe that the relationship holds for all groups, though
-    females (blue) are more represented in the high-score quadrant.
+    females (pink) are more represented in the high-score quadrant.
     """)
 
 st.divider()
@@ -81,7 +107,8 @@ corr_cols = ['Depression Score', 'Insomnia Score', 'Addiction Score', 'Age', 'Se
 corr_matrix = df[corr_cols].corr()
 
 fig, ax = plt.subplots(figsize=(8, 6))
-sns.heatmap(corr_matrix, annot=True, cmap="vlag", center=0, fmt=".2f",
+# Updated heatmap color map (cmap) to match theme
+sns.heatmap(corr_matrix, annot=True, cmap="RdPu", center=0, fmt=".2f",
             linewidths=.5, ax=ax)
 ax.set_title("Heatmap of Numeric Correlations")
 st.pyplot(fig)
