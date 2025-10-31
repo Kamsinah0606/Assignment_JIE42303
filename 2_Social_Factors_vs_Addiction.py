@@ -4,75 +4,47 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import plotly.express as px
 
-# ------------------------------------------------
-# Global Style Settings
-# ------------------------------------------------
-sns.set_theme(style="whitegrid")  # nice clean background
-
-st.title("Objective 2 : Social Factors vs Addiction (BFAS Total)")
-
-# ------------------------------------------------
-# Load Dataset
-# ------------------------------------------------
+# Load data
 DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/refs/heads/main/DataBase.csv"
 df = pd.read_csv(DATA_URL)
 
-st.subheader("Objective 2:")
-st.info("To examine how social factors such as gender, age, and employment relate to addiction levels (BFAS Total).")
+# Theme
+sns.set_theme(style="whitegrid", palette="pink")
 
-st.markdown("---")
+st.title("📈 Objective 2: Social Factors vs Addiction (BFAS Total)")
+st.info("To examine how social factors such as gender, age, and economic background relate to addiction levels (BFAS Total).")
 
-# ------------------------------------------------
-# Detect and Assign Colors Automatically for Gender
-# ------------------------------------------------
+st.divider()
+
+# Color map
 unique_genders = df["Sex"].unique()
-base_colors = ["#1f77b4", "#e377c2", "#9467bd", "#2ca02c", "#ff7f0e"]  # blue, pink, purple, green, orange
-custom_palette = dict(zip(unique_genders, base_colors[:len(unique_genders)]))
+custom_palette = dict(zip(unique_genders, ["#ff5c8d", "#ff9ecd", "#b56576"]))
 
-# ------------------------------------------------
-# Visualization 4: Boxplot
-# ------------------------------------------------
+# Visualization 4: Boxplot (BFAS by Gender)
 fig, ax = plt.subplots(figsize=(6,4))
-sns.boxplot(
-    x="Sex",
-    y="BFAS total",
-    data=df,
-    ax=ax,
-    palette=custom_palette
-)
-ax.set_title("BFAS Total by Gender", fontsize=12)
-ax.set_xlabel("Gender")
-ax.set_ylabel("BFAS Total Score")
+sns.boxplot(x="Sex", y="BFAS total", data=df, ax=ax, palette=custom_palette)
+ax.set_title("BFAS Total by Gender", color="#d63384")
 st.pyplot(fig)
 
-st.markdown("---")
+st.divider()
 
-# ------------------------------------------------
-# Visualization 5: Scatter Plot
-# ------------------------------------------------
+# Visualization 5: Scatter (Age vs BFAS)
 fig = px.scatter(
     df,
     x="Age",
     y="BFAS total",
     color="Sex",
-    title="Age vs BFAS Total",
-    color_discrete_map=custom_palette
+    color_discrete_map=custom_palette,
+    title="Age vs BFAS Total by Gender"
 )
 st.plotly_chart(fig, use_container_width=True)
 
-st.markdown("---")
+st.divider()
 
-# ------------------------------------------------
-# Visualization 6: Heatmap
-# ------------------------------------------------
-pivot = df.pivot_table(index="Employment", columns="Economic status", values="BFAS total", aggfunc="mean")
-
-fig, ax = plt.subplots(figsize=(10,6))
-sns.heatmap(pivot, annot=True, cmap="Purples", ax=ax)
-ax.set_title("Mean BFAS by Employment and Economic Status", fontsize=12)
+# Visualization 6: Violin Plot (Economic status vs BFAS)
+fig, ax = plt.subplots(figsize=(7,5))
+sns.violinplot(x="Economic status", y="BFAS total", data=df, ax=ax, palette="pink")
+ax.set_title("BFAS Distribution by Economic Status", color="#d63384")
 st.pyplot(fig)
 
-# ------------------------------------------------
-# Insight Section
-# ------------------------------------------------
-st.success("Insight: BFAS scores vary across social groups — age and employment type appear linked to behavioral addiction patterns.")
+st.success("Insight: Female respondents and those with higher economic stability show slightly higher BFAS scores, indicating that social and economic factors may influence behavioral addiction levels.")
