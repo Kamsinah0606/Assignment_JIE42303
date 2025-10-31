@@ -68,7 +68,7 @@ A closer look at the demographic, economic, and academic profile of our survey r
 # --- 2. SUMMARY BOX (100-150 words) ---
 st.markdown("""
 <div style='background-color:#f3e5f5; padding:20px; border-radius:15px; border: 1px solid #d63384; margin-bottom: 1.0em;'>
-<h4 style='color:#4a235a;'>Summary Box of Objective 1</h4>
+<h4 style='color:#4a235a;'>Summary Box</h4>
 <p style='color:#4a235a; margin-bottom:0;'>
 This page profiles the 173 survey respondents. The <b>Age Distribution</b> histogram confirms the sample aligns with the target population, showing a high concentration of young adults between 20-25. The <b>Gender Distribution</b> pie chart reveals a relatively balanced cohort, with female respondents (59.5%) slightly outnumbering male respondents (39.9%). The <b>Employment vs. Economic Status</b> grouped bar chart provides key context: the vast majority of participants are 'Unemployed (Support),' which is typical for full-time students. Within this group, most report a 'Satisfied' economic status. Finally, the <b>Field of Study</b> bar chart highlights the academic diversity of the sample, with 'Pharmacy' (23.1%) and 'Psychology' (17.9%) being the most common fields. Overall, the demographic baseline is a young, balanced, and academically varied student body.
 </p>
