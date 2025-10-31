@@ -99,4 +99,8 @@ st.markdown("""
 <div style='background-color:#f3e5f5; padding:20px; border-radius:15px;'>
   <h4 style='color:#4a235a;'>💖 Overall Objective 3 Summary</h4>
   <p style='color:#4a235a;'>
-  Psychological behavior patterns indicate a clear connection between insomnia (AIS) and social media a
+  Psychological behavior patterns indicate a clear connection between insomnia (AIS) and social media addiction (BFAS). 
+  The findings imply that emotional strain and disrupted sleep can significantly contribute to problematic online behavior.
+  </p>
+</div>
+""", unsafe_allow_html=True)
