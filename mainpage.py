@@ -30,7 +30,3 @@ Assessment: *Assignment*
 Course: *Scientific Visualization (JIE42403)*  
 University Malaysia Kelantan
 """)
-
-st.image("https://upload.wikimedia.org/wikipedia/en/2/28/TikTok_logo.svg", width=150)
-st.success("Select a page from the sidebar to begin exploring.")
-
