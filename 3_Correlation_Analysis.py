@@ -55,14 +55,16 @@ df = load_data()
 # ------------------------------------------------
 st.title("💖 Objective 3: Correlation Analysis") 
 
-# --- 1. OBJECTIVE STATEMENT ---
+# --- 1. OBJECTIVE STATEMENT (WITH TITLE) ---
 st.markdown("""
 <div style='background-color:#f5e6fa; padding:15px; border-radius:12px; margin-bottom: 1.0em;'>
+<h5 style='color:#4a235a; margin-bottom: 0.5em;'>Objective Statement</h5>
 <p style='color:#4a235a; margin-bottom:0; font-size: 1.0em;'>
 Uncovering the delicate connections between the key psychological and behavioral scores.
 </p>
 </div>
 """, unsafe_allow_html=True)
+# --- END OF UPDATE ---
 
 # --- 2. SUMMARY BOX (100-150 words) ---
 st.markdown("""
