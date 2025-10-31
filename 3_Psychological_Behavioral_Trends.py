@@ -12,6 +12,13 @@ st.info("To explore correlations between psychological factors (AIS) and addicti
 DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/refs/heads/main/DataBase_Preprocessed.csv"
 df = pd.read_csv(DATA_URL)
 
+# --- FIX ---
+# Create the categorical 'Sex' column by mapping the numeric 'Sex01' column
+sex_mapping = {0: 'Female', 1: 'Male', 2: 'I Do Not Want To Disclose'}
+df['Sex'] = df['Sex01'].map(sex_mapping).fillna('Unknown')
+# --- END FIX ---
+
+
 plt.rcParams['axes.facecolor'] = '#fff8f9'
 plt.rcParams['figure.facecolor'] = '#fff8f9'
 
@@ -34,6 +41,7 @@ st.markdown("""
 st.divider()
 
 # V8: Correlation Heatmap
+# This line was already correct and did not need changing
 corr = df[["Age", "BFAS total", "Sex01", "AIS 0-1"]].corr()
 fig, ax = plt.subplots(figsize=(8,6))
 sns.heatmap(corr, annot=True, cmap="RdPu", ax=ax)
@@ -50,6 +58,7 @@ st.markdown("""
 st.divider()
 
 # V9: 3D Scatter — Age, BFAS, AIS
+# This code now works because df["Sex"] exists
 fig = px.scatter_3d(
     df, x="Age", y="BFAS total", z="AIS 0-1", color="Sex",
     color_discrete_map={"Male":"#69b3a2","Female":"#ff5c8d","I Do Not Want To Disclose":"#b39ddb"},
