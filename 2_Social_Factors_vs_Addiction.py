@@ -11,7 +11,14 @@ st.info("To examine how social factors such as gender, age, and economic status 
 
 DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/refs/heads/main/DataBase_Preprocessed.csv"
 df = pd.read_csv(DATA_URL)
-df["Sex"] = df["Sex"].str.strip().str.title()
+
+# --- FIX ---
+# Replace the failing line with the mapping from 'Sex01' to 'Sex'
+# df["Sex"] = df["Sex"].str.strip().str.title() # <- This was the error
+sex_mapping = {0: 'Female', 1: 'Male', 2: 'I Do Not Want To Disclose'}
+df['Sex'] = df['Sex01'].map(sex_mapping).fillna('Unknown')
+# --- END FIX ---
+
 
 plt.rcParams['axes.facecolor'] = '#fff8f9'
 plt.rcParams['figure.facecolor'] = '#fff8f9'
@@ -19,6 +26,7 @@ plt.rcParams['figure.facecolor'] = '#fff8f9'
 st.divider()
 
 # V4: Boxplot — BFAS Total by Gender
+# This code now works because df["Sex"] exists
 fig, ax = plt.subplots(figsize=(6,4))
 sns.boxplot(x="Sex", y="BFAS total", data=df, ax=ax,
     palette={"Male":"#6a5acd","Female":"#ff80ab","I Do Not Want To Disclose":"#b39ddb"})
@@ -35,6 +43,7 @@ st.markdown("""
 st.divider()
 
 # V5: Scatter Plot — Age vs BFAS (color by Sex)
+# This code now works because df["Sex"] exists
 fig = px.scatter(
     df, x="Age", y="BFAS total", color="Sex",
     color_discrete_map={"Female":"#ff80ab","Male":"#6a5acd","I Do Not Want To Disclose":"#b39ddb"},
