@@ -3,6 +3,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import plotly.express as px
+import numpy as np
 
 # ------------------------------------------------
 # Theme & Plot Settings
@@ -21,16 +22,41 @@ plt.rcParams['grid.color'] = '#f5e6fa' # Light purple grid
 sns.set_theme(style="whitegrid", rc=plt.rcParams)
 
 # ------------------------------------------------
-# Data Loading and Cleaning Function
+# Data Loading and Cleaning Function (from Colab)
 # ------------------------------------------------
 @st.cache_data
 def load_data():
-    DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/refs/heads/main/Insomnic%20.csv"
+    DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/refs/heads/main/DataBase.csv"
     df = pd.read_csv(DATA_URL)
     
+    # 1. Remove duplicates
+    df = df.drop_duplicates()
+
+    # 2. Handle missing values
+    df = df.fillna(df.mean(numeric_only=True))      # Fill numeric columns with mean
+    df = df.fillna(df.mode().iloc[0])                # Fill categorical columns with mode
+
+    # 3. Handle outliers (cap at 3 std dev)
+    for col in df.select_dtypes(include=np.number).columns:
+        upper = df[col].mean() + 3*df[col].std()
+        lower = df[col].mean() - 3*df[col].std()
+        # Use .median() to fill, as in your Colab script
+        df[col] = np.where((df[col] > upper) | (df[col] < lower), df[col].median(), df[col])
+    
+    # 4. Create new 'Employment_Simplified' column
+    employment_mapping = {
+        "I don't work and rely on savings or familial support": 'A',
+        "I engage in casual, part-time work": 'B',
+        "I work full-time": 'C',
+        "I don't work and rely on scholarships": 'D'
+    }
+    df['Employment_Simplified'] = df['Employment'].replace(employment_mapping)
+    
+    # 5. Map Sex column
     sex_mapping = {0: 'Male', 1: 'Female', 2: 'I Do Not Want To Disclose'}
     df['Sex'] = df['Sex01'].map(sex_mapping).fillna(df['Sex'].str.title())
     
+    # 6. Rename score columns for clarity
     df = df.rename(columns={
         'PHQ-9 total': 'Depression Score',
         'AIS total': 'Insomnia Score',
@@ -38,13 +64,6 @@ def load_data():
         'Economic status': 'Economic Status'
     })
     
-    employment_mapping = {
-        "I don't work and rely on savings or familial support": "Unemployed (Support)",
-        "I engage in casual, part-time work": "Part-time Work",
-        "I work full-time": "Full-time Work",
-        "I don't work and rely on scholarships": "Unemployed (Scholarship)"
-    }
-    df['Employment'] = df['Employment'].map(employment_mapping).fillna(df['Employment'])
     return df
 
 df = load_data()
@@ -52,9 +71,9 @@ df = load_data()
 # ------------------------------------------------
 # Page 1: Demographic Profile
 # ------------------------------------------------
-st.title("Objective 1: Demographic Profile")
+st.title("🌸 Objective 1: Demographic Profile")
 
-# --- 1. OBJECTIVE STATEMENT (WITH TITLE) ---
+# --- 1. OBJECTIVE STATEMENT ---
 st.markdown("""
 <div style='background-color:#f5e6fa; padding:15px; border-radius:12px; margin-bottom: 1.0em;'>
 <h5 style='color:#4a235a; margin-bottom: 0.5em;'>Objective Statement</h5>
@@ -63,14 +82,13 @@ A closer look at the demographic, economic, and academic profile of our survey r
 </p>
 </div>
 """, unsafe_allow_html=True)
-# --- END OF UPDATE ---
 
 # --- 2. SUMMARY BOX (100-150 words) ---
 st.markdown("""
 <div style='background-color:#f3e5f5; padding:20px; border-radius:15px; border: 1px solid #d63384; margin-bottom: 1.0em;'>
-<h4 style='color:#4a235a;'>Summary Box</h4>
+<h4 style='color:#4a235a;'>🌼 Objective 1 Summary</h4>
 <p style='color:#4a235a; margin-bottom:0;'>
-This page profiles the 173 survey respondents. The <b>Age Distribution</b> histogram confirms the sample aligns with the target population, showing a high concentration of young adults between 20-25. The <b>Gender Distribution</b> pie chart reveals a relatively balanced cohort, with female respondents (59.5%) slightly outnumbering male respondents (39.9%). The <b>Employment vs. Economic Status</b> grouped bar chart provides key context: the vast majority of participants are 'Unemployed (Support),' which is typical for full-time students. Within this group, most report a 'Satisfied' economic status. Finally, the <b>Field of Study</b> bar chart highlights the academic diversity of the sample, with 'Pharmacy' (23.1%) and 'Psychology' (17.9%) being the most common fields. Overall, the demographic baseline is a young, balanced, and academically varied student body.
+This page profiles the 173 survey respondents after data cleaning. The <b>Age Distribution</b> histogram confirms the sample aligns with the target population, showing a high concentration of young adults between 20-25. The <b>Gender Distribution</b> pie chart reveals a relatively balanced cohort, with female respondents (59.5%) slightly outnumbering male respondents (39.9%). The <b>Economic vs. Employment Status</b> chart provides key context by cross-referencing economic satisfaction with a simplified employment code (e.g., A = Unemployed, B = Part-time). The 'Satisfied' group is primarily composed of 'A' (Unemployed/Support), which is typical for full-time students. Finally, the <b>Field of Study</b> bar chart highlights the academic diversity, with 'Pharmacy' (23.1%) and 'Psychology' (17.9%) being the most common fields.
 </p>
 </div>
 """, unsafe_allow_html=True)
@@ -79,8 +97,6 @@ st.divider()
 
 # --- 3. VISUALIZATIONS & INTERPRETATION ---
 st.subheader("Visualizations & Interpretation")
-
-st.divider()
 
 # --- V1: Age Distribution (Histogram) ---
 st.subheader("Age Distribution of Respondents")
@@ -91,7 +107,7 @@ ax.set_ylabel("Frequency")
 st.pyplot(fig)
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-<h5 style='color:#4a235a;'>Interpretation:</h5>
+<h5 style='color:#4a235a;'>📊 Interpretation:</h5>
 <p style='color:#4a235a; margin-bottom:0;'>The histogram shows that the majority of respondents are young adults,
 primarily concentrated between 20 and 25 years old. This aligns with the target
 population of university students.</p>
@@ -111,7 +127,7 @@ fig.update_layout(paper_bgcolor=theme_bg, plot_bgcolor=theme_bg, font_color=them
 st.plotly_chart(fig, use_container_width=True)
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-<h5 style='color:#4a235a;'>Interpretation:</h5>
+<h5 style='color:#4a235a;'>💬 Interpretation:</h5>
 <p style='color:#4a235a; margin-bottom:0;'>The gender ratio is relatively balanced, with a slightly higher
 proportion of female respondents (59.5% vs 39.9%). This ensures that the analysis can provide
 representative insights across genders.</p>
@@ -120,21 +136,24 @@ representative insights across genders.</p>
 
 st.divider()
 
-# --- V3: Employment vs. Economic Status (Grouped Bar) ---
-st.subheader("Employment vs. Economic Status")
+# --- V3: Economic vs. Employment Status (UPDATED) ---
+st.subheader("Economic vs. Employment Status")
 fig, ax = plt.subplots(figsize=(10, 6))
-sns.countplot(data=df, x="Employment", hue="Economic Status", ax=ax, palette="RdPu")
-ax.set_xlabel("Employment Status")
+# This plot is updated to match your Colab script
+sns.countplot(data=df, x="Economic Status", hue="Employment_Simplified", ax=ax, palette="RdPu")
+ax.set_title("Economic Status vs. Employment Status")
+ax.set_xlabel("Economic Status")
 ax.set_ylabel("Count")
-ax.tick_params(axis='x', rotation=15)
-plt.legend(title="Economic Status")
+ax.tick_params(axis='x', rotation=0)
+plt.legend(title="Employment Status (Simplified)")
 st.pyplot(fig)
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-<h5 style='color:#4a235a;'>Interpretation:</h5>
-<p style='color:#4a235a; margin-bottom:0;'>Most respondents are unemployed and rely on support, and within this
-group, the majority report a "Satisfied" economic status. This is typical for
-a student population.</p>
+<h5 style='color:#4a235a;'>📈 Interpretation:</h5>
+<p style='color:#4a235a; margin-bottom:0;'>This chart shows the count of students by their economic status, broken down by their simplified employment type.
+The 'Satisfied' group is numerically larger than the 'Dissatisfied' group. Within the 'Satisfied' group, category 'A' (Unemployed/Support) is the largest,
+which is expected for a student population.
+<br><b>Legend:</b> A = Unemployed (Support), B = Part-time, C = Full-time, D = Unemployed (Scholarship)</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -156,7 +175,7 @@ fig.update_layout(yaxis={'categoryorder':'total ascending'},
 st.plotly_chart(fig, use_container_width=True)
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-<h5 style='color:#4a235a;'>Interpretation:</h5>
+<h5 style='color:#4a235a;'>🎓 Interpretation:</h5>
 <p style='color:#4a235a; margin-bottom:0;'>This chart shows the academic diversity of the sample.
 'Pharmacy' (23.1%) and 'Psychology' (17.9%) are the most represented fields in this dataset.</p>
 </div>
