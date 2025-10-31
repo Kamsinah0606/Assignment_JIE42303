@@ -8,7 +8,8 @@ import plotly.express as px
 DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/refs/heads/main/DataBase.csv"
 df = pd.read_csv(DATA_URL)
 
-sns.set_theme(style="whitegrid", palette="cherry")
+# ✅ FIXED: Use valid Seaborn palette
+sns.set_theme(style="whitegrid", palette="flare")  # 'flare' gives warm pink tones
 
 st.title("🧠 Objective 3: Psychological & Behavioral Trends")
 st.info("To explore how psychological factors, especially insomnia (AIS), correlate with addiction (BFAS Total).")
