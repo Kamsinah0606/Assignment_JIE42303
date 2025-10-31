@@ -3,6 +3,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import plotly.express as px
+import numpy as np
 
 # ------------------------------------------------
 # Theme & Plot Settings
@@ -21,16 +22,40 @@ plt.rcParams['grid.color'] = '#f5e6fa'
 sns.set_theme(style="whitegrid", rc=plt.rcParams)
 
 # ------------------------------------------------
-# Data Loading and Cleaning Function
+# Data Loading and Cleaning Function (from Colab)
 # ------------------------------------------------
 @st.cache_data
 def load_data():
-    DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/refs/heads/main/Insomnic%20.csv"
+    DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/refs/heads/main/DataBase.csv"
     df = pd.read_csv(DATA_URL)
     
+    # 1. Remove duplicates
+    df = df.drop_duplicates()
+
+    # 2. Handle missing values
+    df = df.fillna(df.mean(numeric_only=True))
+    df = df.fillna(df.mode().iloc[0])
+
+    # 3. Handle outliers (cap at 3 std dev)
+    for col in df.select_dtypes(include=np.number).columns:
+        upper = df[col].mean() + 3*df[col].std()
+        lower = df[col].mean() - 3*df[col].std()
+        df[col] = np.where((df[col] > upper) | (df[col] < lower), df[col].median(), df[col])
+    
+    # 4. Create new 'Employment_Simplified' column
+    employment_mapping = {
+        "I don't work and rely on savings or familial support": 'A',
+        "I engage in casual, part-time work": 'B',
+        "I work full-time": 'C',
+        "I don't work and rely on scholarships": 'D'
+    }
+    df['Employment_Simplified'] = df['Employment'].replace(employment_mapping)
+    
+    # 5. Map Sex column
     sex_mapping = {0: 'Male', 1: 'Female', 2: 'I Do Not Want To Disclose'}
     df['Sex'] = df['Sex01'].map(sex_mapping).fillna(df['Sex'].str.title())
     
+    # 6. Rename score columns for clarity
     df = df.rename(columns={
         'PHQ-9 total': 'Depression Score',
         'AIS total': 'Insomnia Score',
@@ -38,13 +63,6 @@ def load_data():
         'Economic status': 'Economic Status'
     })
     
-    employment_mapping = {
-        "I don't work and rely on savings or familial support": "Unemployed (Support)",
-        "I engage in casual, part-time work": "Part-time Work",
-        "I work full-time": "Full-time Work",
-        "I don't work and rely on scholarships": "Unemployed (Scholarship)"
-    }
-    df['Employment'] = df['Employment'].map(employment_mapping).fillna(df['Employment'])
     return df
 
 df = load_data()
@@ -52,9 +70,9 @@ df = load_data()
 # ------------------------------------------------
 # Page 2: Score Comparisons
 # ------------------------------------------------
-st.title("Objective 2: Score Comparisons") 
+st.title("💜 Objective 2: Score Comparisons") 
 
-# --- 1. OBJECTIVE STATEMENT (WITH TITLE) ---
+# --- 1. OBJECTIVE STATEMENT ---
 st.markdown("""
 <div style='background-color:#f5e6fa; padding:15px; border-radius:12px; margin-bottom: 1.0em;'>
 <h5 style='color:#4a235a; margin-bottom: 0.5em;'>Objective Statement</h5>
@@ -64,14 +82,13 @@ different social and academic circles.
 </p>
 </div>
 """, unsafe_allow_html=True)
-# --- END OF UPDATE ---
 
 # --- 2. SUMMARY BOX (100-150 words) ---
 st.markdown("""
 <div style='background-color:#f3e5f5; padding:20px; border-radius:15px; border: 1px solid #d63384; margin-bottom: 1.0em;'>
-<h4 style='color:#4a235a;'>Summary Box</h4>
+<h4 style='color:#4a235a;'>💬 Objective 2 Summary</h4>
 <p style='color:#4a235a; margin-bottom:0;'>
-This objective examines how key scores differ across social and academic groups. The <b>Addiction Score by Gender</b> boxplot reveals that while both groups have similar medians, female respondents exhibit a wider interquartile range and a slightly higher mean, suggesting greater variability in social media addiction. A more pronounced finding comes from the <b>Depression Score by Economic Status</b> violin plot. The 'Dissatisfied' group not only shows a visibly higher median depression score (PHQ-9) but also a much wider distribution, indicating a greater prevalence of both mild and severe depressive symptoms. Finally, the <b>Average Insomnia Score by Year of Study</b> line plot suggests a concerning trend. Average insomnia scores appear to worsen as academic tenure increases, with a noticeable peak in the 5th and 6th years. This highlights that academic pressure and seniority may be contributing factors to poor sleep quality.
+This objective examines how key scores from the cleaned dataset differ across groups. The <b>Addiction Score by Gender</b> boxplot reveals that while both groups have similar medians, female respondents exhibit a wider interquartile range and a slightly higher mean, suggesting greater variability in social media addiction. A more pronounced finding comes from the <b>Depression Score by Economic Status</b> violin plot. The 'Dissatisfied' group not only shows a visibly higher median depression score (PHQ-9) but also a much wider distribution, indicating a greater prevalence of both mild and severe depressive symptoms. Finally, the <b>Average Insomnia Score by Year of Study</b> line plot suggests a concerning trend. Average insomnia scores appear to worsen as academic tenure increases, with a noticeable peak in the 5th and 6th years. This highlights that academic pressure and seniority may be contributing factors to poor sleep quality.
 </p>
 </div>
 """, unsafe_allow_html=True)
@@ -81,18 +98,17 @@ st.divider()
 # --- 3. VISUALIZATIONS & INTERPRETATION ---
 st.subheader("Visualizations & Interpretation")
 
-st.divider()
-
-# --- V1: Addiction Score by Gender (Boxplot) ---
+# --- V1: Addiction Score by Gender (Boxplot) (UPDATED) ---
 st.subheader("Addiction Score by Gender")
 fig, ax = plt.subplots()
-sns.boxplot(data=df, x="Sex", y="Addiction Score", ax=ax, palette="RdPu")
+# Updated to match Colab: added hue and legend=False
+sns.boxplot(data=df, x="Sex", y="Addiction Score", hue="Sex", ax=ax, palette="RdPu", legend=False)
 ax.set_xlabel("Gender")
 ax.set_ylabel("Addiction Score (BFAS)")
 st.pyplot(fig)
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-<h5 style='color:#4a235a;'>Interpretation:</h5>
+<h5 style='color:#4a235a;'>📊 Interpretation:</h5>
 <p style='color:#4a235a; margin-bottom:0;'>This boxplot compares the distribution of addiction scores
 between genders. Female respondents show a slightly higher median score
 and a wider interquartile range, suggesting more variability in this group.</p>
@@ -110,7 +126,7 @@ ax.set_ylabel("Depression Score (PHQ-9)")
 st.pyplot(fig)
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-<h5 style='color:#4a235a;'>Interpretation:</h5>
+<h5 style='color:#4a235a;'>🎻 Interpretation:</h5>
 <p style='color:#4a235a; margin-bottom:0;'>The 'Dissatisfied' group not only has a higher median
 depression score but also a wider distribution, indicating a greater
 prevalence of both mild and severe depressive symptoms compared
@@ -138,11 +154,11 @@ try:
     st.plotly_chart(fig, use_container_width=True)
     st.markdown("""
     <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-    <h5 style='color:#4a235a;'>Interpretation:</h5>
-    <p style='color:#4a235a; margin-bottom:0;'>This line plot shows a noticeable trend where the average
-    insomnia score appears to increase, peaking around the 5th and 6th years of study.
-    This may suggest that academic pressure or stress accumulates over time.</p>
-    </div>
-    """, unsafe_allow_html=True)
+<h5 style='color:#4a235a;'>📈 Interpretation:</h5>
+<p style='color:#4a235a; margin-bottom:0;'>This line plot shows a noticeable trend where the average
+insomnia score appears to increase, peaking around the 5th and 6th years of study.
+This may suggest that academic pressure or stress accumulates over time.</p>
+</div>
+""", unsafe_allow_html=True)
 except Exception as e:
     st.error(f"Could not plot 'Year of study' trend. Error: {e}")
