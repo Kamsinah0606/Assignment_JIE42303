@@ -3,43 +3,45 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-# Load dataset
+sns.set_theme(style="whitegrid", palette="rocket")
+
+st.title("🌸 Objective 1: Demographic Distribution")
+st.info("To analyze the demographic distribution of respondents based on age, gender, and employment type.")
+
 DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/refs/heads/main/DataBase.csv"
 df = pd.read_csv(DATA_URL)
 
-# Theme
-sns.set_theme(style="whitegrid", palette="flare")
-
-st.title("🎯 Objective 1: Demographic Distribution")
-st.info("To analyze the demographic distribution of respondents based on age, gender, and employment type.")
-
 st.divider()
 
-# Visualization 1: Age Distribution
-fig, ax = plt.subplots(figsize=(7,4))
-sns.histplot(df["Age"], bins=10, kde=True, ax=ax, color="#ff5c8d")
-ax.set_title("Age Distribution of Respondents", fontsize=12, color="#d63384")
+# Visualization 1: Age distribution
+fig, ax = plt.subplots(figsize=(6,4))
+sns.histplot(df["Age"], bins=10, kde=True, ax=ax, color="#ff80ab")
+ax.set_title("Age Distribution of Respondents")
 st.pyplot(fig)
 
+# Visualization 2: Gender ratio
 st.divider()
-
-# Visualization 2: Gender Ratio (Pie Chart)
 fig, ax = plt.subplots(figsize=(5,5))
 gender_counts = df["Sex"].value_counts()
-ax.pie(gender_counts, labels=gender_counts.index, autopct="%1.1f%%", startangle=90,
-       colors=["#ff7eb9", "#ff65a3", "#7afcff"])
-ax.set_title("Gender Ratio of Respondents", color="#d63384")
+ax.pie(gender_counts, labels=gender_counts.index, autopct="%1.1f%%",
+       startangle=90, colors=["#ffb6c1", "#b39ddb", "#f3e5f5"])
+ax.set_title("Gender Ratio")
 st.pyplot(fig)
 
+# Visualization 3: Employment distribution
 st.divider()
-
-# Visualization 3: Employment by Economic Status (Grouped Bar)
-fig, ax = plt.subplots(figsize=(8,5))
-sns.countplot(data=df, x="Employment", hue="Economic status", ax=ax, palette="flare")
-ax.set_title("Employment Type by Economic Status", color="#d63384")
-ax.set_xlabel("Employment Type")
-ax.set_ylabel("Number of Respondents")
-ax.legend(title="Economic Status")
+fig, ax = plt.subplots(figsize=(8,4))
+sns.countplot(y="Employment", data=df, order=df["Employment"].value_counts().index, ax=ax, color="#ce93d8")
+ax.set_title("Employment Distribution")
 st.pyplot(fig)
 
-st.success("Insight: Respondents are mostly young adults (ages 21–25) with a balanced gender mix and diverse employment and economic backgrounds, reflecting a representative sample of university students.")
+# Summary Box
+st.markdown("""
+<div style='background-color:#f5e6fa; padding:20px; border-radius:15px;'>
+  <h4 style='color:#4a235a;'>🌼 Summary Insight</h4>
+  <p style='color:#4a235a;'>
+  Most respondents are young adults with balanced gender representation. 
+  The diverse employment distribution highlights varying lifestyles that may influence social media use patterns.
+  </p>
+</div>
+""", unsafe_allow_html=True)
