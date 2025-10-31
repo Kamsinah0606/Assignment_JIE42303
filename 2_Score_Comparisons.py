@@ -22,46 +22,17 @@ plt.rcParams['grid.color'] = '#f5e6fa'
 sns.set_theme(style="whitegrid", rc=plt.rcParams)
 
 # ------------------------------------------------
-# Data Loading and Cleaning Function (from Colab)
+# Data Loading Function (Simplified)
 # ------------------------------------------------
 @st.cache_data
 def load_data():
-    DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/refs/heads/main/DataBase.csv"
+    # --- UPDATED DATA URL ---
+    DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/main/Insomnic%20.csv"
     df = pd.read_csv(DATA_URL)
     
-    # 1. Remove duplicates
-    df = df.drop_duplicates()
-
-    # 2. Handle missing values
-    df = df.fillna(df.mean(numeric_only=True))
-    df = df.fillna(df.mode().iloc[0])
-
-    # 3. Handle outliers (cap at 3 std dev)
-    for col in df.select_dtypes(include=np.number).columns:
-        upper = df[col].mean() + 3*df[col].std()
-        lower = df[col].mean() - 3*df[col].std()
-        df[col] = np.where((df[col] > upper) | (df[col] < lower), df[col].median(), df[col])
-    
-    # 4. Create new 'Employment_Simplified' column
-    employment_mapping = {
-        "I don't work and rely on savings or familial support": 'A',
-        "I engage in casual, part-time work": 'B',
-        "I work full-time": 'C',
-        "I don't work and rely on scholarships": 'D'
-    }
-    df['Employment_Simplified'] = df['Employment'].replace(employment_mapping)
-    
-    # 5. Map Sex column
-    sex_mapping = {0: 'Male', 1: 'Female', 2: 'I Do Not Want To Disclose'}
-    df['Sex'] = df['Sex01'].map(sex_mapping).fillna(df['Sex'].str.title())
-    
-    # 6. Rename score columns for clarity
-    df = df.rename(columns={
-        'PHQ-9 total': 'Depression Score',
-        'AIS total': 'Insomnia Score',
-        'BFAS total': 'Addiction Score',
-        'Economic status': 'Economic Status'
-    })
+    # Standardize string columns for consistent plotting
+    df['Sex'] = df['Sex'].str.title()
+    df['Economic status'] = df['Economic status'].replace({'Satisfy': 'Satisfied', 'Dissatisfy': 'Dissatisfied'})
     
     return df
 
@@ -101,10 +72,10 @@ st.subheader("Visualizations & Interpretation")
 # --- V1: Addiction Score by Gender (Boxplot) (UPDATED) ---
 st.subheader("Addiction Score by Gender")
 fig, ax = plt.subplots()
-# Updated to match Colab: added hue and legend=False
-sns.boxplot(data=df, x="Sex", y="Addiction Score", hue="Sex", ax=ax, palette="RdPu", legend=False)
+# Updated to use 'BFAS total' and match Colab parameters
+sns.boxplot(data=df, x="Sex", y="BFAS total", hue="Sex", ax=ax, palette="RdPu", legend=False)
 ax.set_xlabel("Gender")
-ax.set_ylabel("Addiction Score (BFAS)")
+ax.set_ylabel("Addiction Score (BFAS)") # Keep friendly label
 st.pyplot(fig)
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
@@ -117,12 +88,13 @@ and a wider interquartile range, suggesting more variability in this group.</p>
 
 st.divider()
 
-# --- V2: Depression Score by Economic Status (Violin Plot) ---
+# --- V2: Depression Score by Economic Status (Violin Plot) (UPDATED) ---
 st.subheader("Depression Score by Economic Status")
 fig, ax = plt.subplots()
-sns.violinplot(data=df, x="Economic Status", y="Depression Score", ax=ax, inner="quartile", palette="PuRd")
+# Updated to use 'Economic status' and 'PHQ-9 total'
+sns.violinplot(data=df, x="Economic status", y="PHQ-9 total", ax=ax, inner="quartile", palette="PuRd")
 ax.set_xlabel("Economic Status")
-ax.set_ylabel("Depression Score (PHQ-9)")
+ax.set_ylabel("Depression Score (PHQ-9)") # Keep friendly label
 st.pyplot(fig)
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
@@ -136,13 +108,15 @@ to the 'Satisfied' group.</p>
 
 st.divider()
 
-# --- V3: Insomnia Score by Year of Study (Line Plot) ---
+# --- V3: Insomnia Score by Year of Study (Line Plot) (UPDATED) ---
 st.subheader("Average Insomnia Score by Year of Study")
 
 try:
+    # 'Year Num' is already in Insomnic.csv, but we re-run logic for safety
     df['Year Num'] = df['Year of study'].str.extract('(\d+)').astype(float)
+    # Updated to use 'AIS total'
     avg_insomnia = df.groupby('Year of study').agg(
-        Mean_Insomnia=('Insomnia Score', 'mean'),
+        Mean_Insomnia=('AIS total', 'mean'),
         Year_Num=('Year Num', 'first')
     ).reset_index().sort_values('Year_Num')
     
