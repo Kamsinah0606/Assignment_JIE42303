@@ -52,7 +52,7 @@ df = load_data()
 # ------------------------------------------------
 # Page 1: Demographic Profile
 # ------------------------------------------------
-st.title("🌸 Objective 1: Demographic Profile")
+st.title("Objective 1: Demographic Profile")
 
 st.markdown("""
 <div style='background-color:#f5e6fa; padding:15px; border-radius:12px; margin-bottom: 1.0em;'>
@@ -73,7 +73,7 @@ ax.set_ylabel("Frequency")
 st.pyplot(fig)
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-<h5 style='color:#4a235a;'>📊 Summary:</h5>
+<h5 style='color:#4a235a;'>Summary:</h5>
 <p style='color:#4a235a; margin-bottom:0;'>The histogram shows that the majority of respondents are young adults,
 primarily concentrated between 20 and 25 years old. This aligns with the target
 population of university students.</p>
@@ -93,7 +93,7 @@ fig.update_layout(paper_bgcolor=theme_bg, plot_bgcolor=theme_bg, font_color=them
 st.plotly_chart(fig, use_container_width=True)
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-<h5 style='color:#4a235a;'>💬 Summary:</h5>
+<h5 style='color:#4a235a;'>Summary:</h5>
 <p style='color:#4a235a; margin-bottom:0;'>The gender ratio is relatively balanced, with a slightly higher
 proportion of female respondents. This ensures that the analysis can provide
 representative insights across genders.</p>
@@ -113,7 +113,7 @@ plt.legend(title="Economic Status")
 st.pyplot(fig)
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-<h5 style='color:#4a235a;'>📈 Summary:</h5>
+<h5 style='color:#4a235a;'>Summary:</h5>
 <p style='color:#4a235a; margin-bottom:0;'>Most respondents are unemployed and rely on support, and within this
 group, the majority report a "Satisfied" economic status. This is typical for
 a student population.</p>
@@ -134,7 +134,7 @@ fig.update_layout(yaxis={'categoryorder':'total ascending'},
 st.plotly_chart(fig, use_container_width=True)
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-<h5 style='color:#4a235a;'>🎓 Summary:</h5>
+<h5 style='color:#4a235a;'>Summary:</h5>
 <p style='color:#4a235a; margin-bottom:0;'>This chart shows the academic diversity of the sample,
 highlighting the most common fields of study.</p>
 </div>
@@ -145,7 +145,7 @@ st.divider()
 # --- Overall Summary Box ---
 st.markdown("""
 <div style='background-color:#f3e5f5; padding:20px; border-radius:15px; border: 1px solid #d63384;'>
-<h4 style='color:#4a235a;'>🌼 Overall Objective 1 Summary</h4>
+<h4 style='color:#4a235a;'>Overall Objective 1 Summary</h4>
 <p style='color:#4a235a; margin-bottom:0;'>The dataset represents a young, academically diverse
 university population with a balanced gender ratio. Most are students who are
 economically satisfied, providing a stable baseline for analyzing the
