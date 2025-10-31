@@ -1,34 +1,15 @@
 import streamlit as st
 
 # ------------------------------------------------
-# 🌸 Page Configuration
+# Page Configuration
 # ------------------------------------------------
 st.set_page_config(
-    page_title="TikTok Use and Depressive Symptoms Study",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
-
-# Custom sidebar style
-st.markdown(
-    """
-    <style>
-        [data-testid="stSidebar"] {
-            background-color: #ffd6e7; /* pastel pink */
-        }
-        [data-testid="stHeader"] {
-            background-color: #fff; /* white header */
-        }
-        h1, h2, h3 {
-            color: #d63384; /* pink headings */
-        }
-    </style>
-    """,
-    unsafe_allow_html=True
+    page_title="The Indirect Effect of TikTok Use on Depressive Symptoms through Insomnia among University Students",
+    layout="wide"
 )
 
 # ------------------------------------------------
-# 🌸 Define Pages
+# Define Pages
 # ------------------------------------------------
 objective_1 = st.Page("1_Demographic_Distribution.py",
                       title="Objective 1: Demographic Distribution",
@@ -44,13 +25,10 @@ objective_3 = st.Page("3_Psychological_Behavioral_Trends.py",
                       icon=":material/psychology:")
 
 # ------------------------------------------------
-# 🌸 Navigation Menu
+# Navigation Menu
 # ------------------------------------------------
 pg = st.navigation({
-    "Explore the Study": [objective_1, objective_2, objective_3]
+    "Menu": [objective_1, objective_2, objective_3]
 })
 
-# ------------------------------------------------
-# Run the App
-# ------------------------------------------------
 pg.run()
