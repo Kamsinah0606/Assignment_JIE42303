@@ -52,7 +52,7 @@ df = load_data()
 # ------------------------------------------------
 # Page 2: Score Comparisons
 # ------------------------------------------------
-st.title("💜 Objective 2: Score Comparisons") 
+st.title("Objective 2: Score Comparisons") 
 
 st.markdown("""
 <div style='background-color:#f5e6fa; padding:15px; border-radius:12px; margin-bottom: 1.0em;'>
@@ -74,7 +74,7 @@ ax.set_ylabel("Addiction Score (BFAS)")
 st.pyplot(fig)
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-<h5 style='color:#4a235a;'>📊 Summary:</h5>
+<h5 style='color:#4a235a;'>Summary:</h5>
 <p style='color:#4a235a; margin-bottom:0;'>This boxplot compares the distribution of addiction scores
 between genders. Female respondents show a slightly higher median score
 and a wider interquartile range, suggesting more variability in this group.</p>
@@ -92,7 +92,7 @@ ax.set_ylabel("Depression Score (PHQ-9)")
 st.pyplot(fig)
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-<h5 style='color:#4a235a;'>🎻 Summary:</h5>
+<h5 style='color:#4a235a;'>Summary:</h5>
 <p style='color:#4a235a; margin-bottom:0;'>The 'Dissatisfied' group not only has a higher median
 depression score but also a wider distribution, indicating a greater
 prevalence of both mild and severe depressive symptoms compared
@@ -120,7 +120,7 @@ try:
     st.plotly_chart(fig, use_container_width=True)
     st.markdown("""
     <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-    <h5 style='color:#4a235a;'>📈 Summary:</h5>
+    <h5 style='color:#4a235a;'>Summary:</h5>
     <p style='color:#4a235a; margin-bottom:0;'>This line plot shows a noticeable trend where the average
     insomnia score appears to increase, peaking around the 5th and 6th years of study.
     This may suggest that academic pressure or stress accumulates over time.</p>
@@ -134,7 +134,7 @@ st.divider()
 # --- Overall Summary Box ---
 st.markdown("""
 <div style='background-color:#f3e5f5; padding:20px; border-radius:15px; border: 1px solid #d63384;'>
-<h4 style='color:#4a235a;'>💬 Overall Objective 2 Summary</h4>
+<h4 style='color:#4a235a;'>Overall Objective 2 Summary</h4>
 <p style='color:#4a235a; margin-bottom:0;'>The analysis reveals clear differences in
 psychological scores across social groups. Economic dissatisfaction is strongly
 linked to higher depression scores, while addiction levels vary by gender.
