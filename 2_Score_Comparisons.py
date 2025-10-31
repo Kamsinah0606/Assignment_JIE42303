@@ -25,17 +25,13 @@ sns.set_theme(style="whitegrid", rc=plt.rcParams)
 # ------------------------------------------------
 @st.cache_data
 def load_data():
-    # --- THIS IS THE FIX ---
-    # The URL now points to DataBase.csv, which has the 'Employment' column
+    # Use the full DataBase.csv file
     DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/refs/heads/main/DataBase.csv"
-    # --- END FIX ---
-    
     df = pd.read_csv(DATA_URL)
     
     # --- Data Cleaning and Fixing ---
-    # This file has Sex01 AND Sex, but we'll use Sex01 for consistency
     sex_mapping = {0: 'Male', 1: 'Female', 2: 'I Do Not Want To Disclose'}
-    df['Sex'] = df['Sex01'].map(sex_mapping).fillna(df['Sex'].str.title()) # Fallback to existing 'Sex' col
+    df['Sex'] = df['Sex01'].map(sex_mapping).fillna(df['Sex'].str.title())
     
     df = df.rename(columns={
         'PHQ-9 total': 'Depression Score',
@@ -44,7 +40,6 @@ def load_data():
         'Economic status': 'Economic Status'
     })
     
-    # This mapping will now work because 'Employment' exists in the file
     employment_mapping = {
         "I don't work and rely on savings or familial support": "Unemployed (Support)",
         "I engage in casual, part-time work": "Part-time Work",
@@ -63,7 +58,6 @@ st.title("💜 Objective 2: Score Comparisons")
 st.info("To examine how depression, insomnia, and addiction levels differ across key demographic and academic groups.")
 st.divider()
 
-# --- Layout ---
 col1, col2 = st.columns(2)
 
 # --- V1: Addiction Score by Gender (Boxplot) ---
@@ -74,11 +68,15 @@ with col1:
     ax.set_xlabel("Gender")
     ax.set_ylabel("Addiction Score (BFAS)")
     st.pyplot(fig)
+    # --- UPDATED SUMMARY BOX ---
     st.markdown("""
-    **Summary:** This boxplot compares the distribution of addiction scores
+    <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
+    <h5 style='color:#4a235a;'>📊 Summary:</h5>
+    <p style='color:#4a235a; margin-bottom:0;'>This boxplot compares the distribution of addiction scores
     between genders. Female respondents show a slightly higher median score
-    and a wider interquartile range, suggesting more variability in this group.
-    """)
+    and a wider interquartile range, suggesting more variability in this group.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
 # --- V2: Depression Score by Economic Status (Violin Plot) ---
 with col2:
@@ -88,12 +86,16 @@ with col2:
     ax.set_xlabel("Economic Status")
     ax.set_ylabel("Depression Score (PHQ-9)")
     st.pyplot(fig)
+    # --- UPDATED SUMMARY BOX ---
     st.markdown("""
-    **Summary:** The 'Dissatisfied' group not only has a higher median
+    <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
+    <h5 style='color:#4a235a;'>🎻 Summary:</h5>
+    <p style='color:#4a235a; margin-bottom:0;'>The 'Dissatisfied' group not only has a higher median
     depression score but also a wider distribution, indicating a greater
     prevalence of both mild and severe depressive symptoms compared
-    to the 'Satisfied' group.
-    """)
+    to the 'Satisfied' group.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
 st.divider()
 
@@ -113,19 +115,28 @@ try:
                       paper_bgcolor=theme_bg, plot_bgcolor=theme_bg, font_color=theme_text)
     fig.update_traces(line_color=theme_primary)
     st.plotly_chart(fig, use_container_width=True)
+    # --- UPDATED SUMMARY BOX ---
     st.markdown("""
-    **Summary:** This line plot shows a noticeable trend where the average
+    <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
+    <h5 style='color:#4a235a;'>📈 Summary:</h5>
+    <p style='color:#4a235a; margin-bottom:0;'>This line plot shows a noticeable trend where the average
     insomnia score appears to increase, peaking around the 5th and 6th years of study.
-    This may suggest that academic pressure or stress accumulates over time.
-    """)
+    This may suggest that academic pressure or stress accumulates over time.</p>
+    </div>
+    """, unsafe_allow_html=True)
 except Exception as e:
     st.error(f"Could not plot 'Year of study' trend. Error: {e}")
 
 st.divider()
-st.success("""
-**💬 Overall Objective 2 Summary:** The analysis reveals clear differences in
+
+# --- UPDATED OVERALL SUMMARY BOX ---
+st.markdown("""
+<div style='background-color:#f3e5f5; padding:20px; border-radius:15px; border: 1px solid #d63384;'>
+<h4 style='color:#4a235a;'>💬 Overall Objective 2 Summary</h4>
+<p style='color:#4a235a; margin-bottom:0;'>The analysis reveals clear differences in
 psychological scores across social groups. Economic dissatisfaction is strongly
 linked to higher depression scores, while addiction levels vary by gender.
 Furthermore, insomnia scores appear to worsen in later years of study,
-highlighting a potential link between academic progression and sleep quality.
-""")
+highlighting a potential link between academic progression and sleep quality.</p>
+</div>
+""", unsafe_allow_html=True)
