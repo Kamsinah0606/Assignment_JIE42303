@@ -11,6 +11,14 @@ st.info("To analyze the demographic distribution of respondents based on age, ge
 DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/refs/heads/main/DataBase_Preprocessed.csv"
 df = pd.read_csv(DATA_URL)
 
+# --- FIX ---
+# Create the categorical 'Sex' column by mapping the numeric 'Sex01' column
+# We assume a mapping based on the palettes in the other files.
+sex_mapping = {0: 'Female', 1: 'Male', 2: 'I Do Not Want To Disclose'}
+df['Sex'] = df['Sex01'].map(sex_mapping).fillna('Unknown')
+# --- END FIX ---
+
+
 plt.rcParams['axes.facecolor'] = '#fff8f9'
 plt.rcParams['figure.facecolor'] = '#fff8f9'
 
@@ -32,6 +40,7 @@ st.markdown("""
 st.divider()
 
 # V2: Pie Chart — Gender Ratio
+# This code now works because df["Sex"] exists
 fig, ax = plt.subplots(figsize=(5,5))
 gender_counts = df["Sex"].value_counts()
 ax.pie(gender_counts, labels=gender_counts.index, autopct="%1.1f%%",
