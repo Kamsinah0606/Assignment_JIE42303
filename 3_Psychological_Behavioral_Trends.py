@@ -9,7 +9,7 @@ sns.set_theme(style="whitegrid", palette="flare")
 st.title("💖 Objective 3: Psychological & Behavioral Trends")
 st.info("To explore correlations between psychological factors (AIS) and addiction scores (BFAS Total).")
 
-DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/refs/heads/main/DataBase.csv"
+DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/refs/heads/main/DataBase_Preprocessed.csv"
 df = pd.read_csv(DATA_URL)
 
 plt.rcParams['axes.facecolor'] = '#fff8f9'
