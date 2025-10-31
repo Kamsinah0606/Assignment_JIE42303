@@ -26,8 +26,21 @@ st.pyplot(fig)
 st.markdown("---")
 
 # Visualization 5: Scatter plot
-fig = px.scatter(df, x="Age", y="BFAS total", color="Sex", title="Age vs BFAS Total", color_discrete_sequence=["#9b59b6", "#8e44ad"])
+fig = px.scatter(
+    df,
+    x="Age",
+    y="BFAS total",
+    color="Sex",
+    title="Age vs BFAS Total",
+    color_discrete_map={
+        "Female": "red",
+        "Male": "blue",
+        "I do not want to disclose": "purple"
+    }
+)
+
 st.plotly_chart(fig, use_container_width=True)
+
 
 st.markdown("---")
 
