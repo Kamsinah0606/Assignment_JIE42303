@@ -18,11 +18,13 @@ st.info("To examine how social factors such as gender, age, and employment relat
 st.markdown("---")
 
 # Visualization 4: Boxplot
-fig, ax = plt.subplots(figsize=(6,4))
-sns.boxplot(x="Sex", y="BFAS total",data=df, ax=ax, 
-           )
-ax.set_title("BFAS Total by Gender")
-st.pyplot(fig)
+sns.set_theme(style="whitegrid")
+custom_palette = {
+    "Male": "#1f77b4",
+    "Female": "#e377c2",
+    "I do not want to disclose": "#9467bd"
+}
+sns.boxplot(x="Sex", y="BFAS total", data=df, ax=ax, palette=custom_palette)
 
 st.markdown("---")
 
