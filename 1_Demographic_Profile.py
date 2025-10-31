@@ -52,7 +52,7 @@ df = load_data()
 # ------------------------------------------------
 # Page 1: Demographic Profile
 # ------------------------------------------------
-st.title("🌸 Objective 1: Demographic Profile")
+st.title("Objective 1: Demographic Profile")
 
 # --- 1. OBJECTIVE STATEMENT (WITH TITLE) ---
 st.markdown("""
@@ -79,6 +79,8 @@ st.divider()
 
 # --- 3. VISUALIZATIONS & INTERPRETATION ---
 st.subheader("Visualizations & Interpretation")
+
+st.divider()
 
 # --- V1: Age Distribution (Histogram) ---
 st.subheader("Age Distribution of Respondents")
