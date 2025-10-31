@@ -4,31 +4,35 @@ import streamlit as st
 # Page Configuration
 # ------------------------------------------------
 st.set_page_config(
-    page_title="The indirect effect of TikTok use on depressive symptoms through insomnia among university students",
+    page_title="TikTok Use Study – Student Survey",
     layout="wide"
 )
 
 # ------------------------------------------------
-# Define Pages (only 3 objectives — no homepage page)
+# Define All Pages (Now includes mainpage)
 # ------------------------------------------------
+mainpage = st.Page("mainpage.py",
+                   title="🏠 Main Page",
+                   icon=":material/home:",
+                   default=True)  # Start here
+
 objective_1 = st.Page("1_Demographic_Distribution.py",
-                      title="Objective 1: Demographic Distribution",
-                      icon=":material/analytics:",
-                      default=True)  # start here
+                      title="📊 Objective 1: Demographic Distribution",
+                      icon=":material/analytics:")
 
 objective_2 = st.Page("2_Social_Factors_vs_Addiction.py",
-                      title="Objective 2: Social Factors vs Addiction",
+                      title="📈 Objective 2: Social Factors vs Addiction",
                       icon=":material/groups:")
 
 objective_3 = st.Page("3_Psychological_Behavioral_Trends.py",
-                      title="Objective 3: Psychological & Behavioral Trends",
+                      title="🧠 Objective 3: Psychological & Behavioral Trends",
                       icon=":material/psychology:")
 
 # ------------------------------------------------
 # Navigation Menu
 # ------------------------------------------------
 pg = st.navigation({
-    "Menu": [objective_1, objective_2, objective_3]
+    "Menu": [mainpage, objective_1, objective_2, objective_3]
 })
 
 # ------------------------------------------------
