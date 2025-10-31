@@ -26,11 +26,9 @@ sns.set_theme(style="whitegrid", rc=plt.rcParams)
 # ------------------------------------------------
 @st.cache_data
 def load_data():
-    # --- UPDATED DATA URL ---
     DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/main/Insomnic%20.csv"
     df = pd.read_csv(DATA_URL)
     
-    # Standardize string columns for consistent plotting
     df['Sex'] = df['Sex'].str.title()
     df['Economic status'] = df['Economic status'].replace({'Satisfy': 'Satisfied', 'Dissatisfy': 'Dissatisfied'})
     
@@ -69,13 +67,13 @@ st.divider()
 # --- 3. VISUALIZATIONS & INTERPRETATION ---
 st.subheader("Visualizations & Interpretation")
 
-# --- V1: Addiction Score by Gender (Boxplot) (UPDATED) ---
+# --- V1: Addiction Score by Gender (Boxplot) ---
+# This plot (Seaborn) already uses the correct grid from rcParams
 st.subheader("Addiction Score by Gender")
 fig, ax = plt.subplots()
-# Updated to use 'BFAS total' and match Colab parameters
 sns.boxplot(data=df, x="Sex", y="BFAS total", hue="Sex", ax=ax, palette="RdPu", legend=False)
 ax.set_xlabel("Gender")
-ax.set_ylabel("Addiction Score (BFAS)") # Keep friendly label
+ax.set_ylabel("Addiction Score (BFAS)")
 st.pyplot(fig)
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
@@ -88,13 +86,13 @@ and a wider interquartile range, suggesting more variability in this group.</p>
 
 st.divider()
 
-# --- V2: Depression Score by Economic Status (Violin Plot) (UPDATED) ---
+# --- V2: Depression Score by Economic Status (Violin Plot) ---
+# This plot (Seaborn) already uses the correct grid from rcParams
 st.subheader("Depression Score by Economic Status")
 fig, ax = plt.subplots()
-# Updated to use 'Economic status' and 'PHQ-9 total'
 sns.violinplot(data=df, x="Economic status", y="PHQ-9 total", ax=ax, inner="quartile", palette="PuRd")
 ax.set_xlabel("Economic Status")
-ax.set_ylabel("Depression Score (PHQ-9)") # Keep friendly label
+ax.set_ylabel("Depression Score (PHQ-9)")
 st.pyplot(fig)
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
@@ -108,13 +106,11 @@ to the 'Satisfied' group.</p>
 
 st.divider()
 
-# --- V3: Insomnia Score by Year of Study (Line Plot) (UPDATED) ---
+# --- V3: Insomnia Score by Year of Study (Line Plot) (GRID UPDATED) ---
 st.subheader("Average Insomnia Score by Year of Study")
 
 try:
-    # 'Year Num' is already in Insomnic.csv, but we re-run logic for safety
     df['Year Num'] = df['Year of study'].str.extract('(\d+)').astype(float)
-    # Updated to use 'AIS total'
     avg_insomnia = df.groupby('Year of study').agg(
         Mean_Insomnia=('AIS total', 'mean'),
         Year_Num=('Year Num', 'first')
@@ -122,8 +118,11 @@ try:
     
     fig = px.line(avg_insomnia, x="Year of study", y="Mean_Insomnia", markers=True,
                   labels={"Year of study": "Year of Study", "Mean_Insomnia": "Average Insomnia Score"})
+    # --- THIS IS THE UPDATE ---
     fig.update_layout(xaxis={'categoryorder':'array', 'categoryarray': avg_insomnia["Year of study"]},
-                      paper_bgcolor=theme_bg, plot_bgcolor=theme_bg, font_color=theme_text)
+                      paper_bgcolor=theme_bg, plot_bgcolor=theme_bg, font_color=theme_text,
+                      yaxis_gridcolor='#f5e6fa', xaxis_gridcolor='#f5e6fa') # Set grid color
+    # --- END OF UPDATE ---
     fig.update_traces(line_color=theme_primary)
     st.plotly_chart(fig, use_container_width=True)
     st.markdown("""
