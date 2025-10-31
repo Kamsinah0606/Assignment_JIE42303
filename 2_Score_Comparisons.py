@@ -25,11 +25,9 @@ sns.set_theme(style="whitegrid", rc=plt.rcParams)
 # ------------------------------------------------
 @st.cache_data
 def load_data():
-    # Use the full DataBase.csv file
     DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/refs/heads/main/DataBase.csv"
     df = pd.read_csv(DATA_URL)
     
-    # --- Data Cleaning and Fixing ---
     sex_mapping = {0: 'Male', 1: 'Female', 2: 'I Do Not Want To Disclose'}
     df['Sex'] = df['Sex01'].map(sex_mapping).fillna(df['Sex'].str.title())
     
@@ -56,8 +54,6 @@ df = load_data()
 # ------------------------------------------------
 st.title("💜 Objective 2: Score Comparisons") 
 
-# --- UPDATED OBJECTIVE BOX ---
-# Replaced st.info() with a themed markdown box
 st.markdown("""
 <div style='background-color:#f5e6fa; padding:15px; border-radius:12px; margin-bottom: 1.0em;'>
 <p style='color:#4a235a; margin-bottom:0; font-size: 1.0em;'>
@@ -66,46 +62,43 @@ different social and academic circles.
 </p>
 </div>
 """, unsafe_allow_html=True)
-# --- END OF UPDATE ---
 
 st.divider()
 
-col1, col2 = st.columns(2)
-
 # --- V1: Addiction Score by Gender (Boxplot) ---
-with col1:
-    st.subheader("Addiction Score by Gender")
-    fig, ax = plt.subplots()
-    sns.boxplot(data=df, x="Sex", y="Addiction Score", ax=ax, palette="RdPu")
-    ax.set_xlabel("Gender")
-    ax.set_ylabel("Addiction Score (BFAS)")
-    st.pyplot(fig)
-    st.markdown("""
-    <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-    <h5 style='color:#4a235a;'>📊 Summary:</h5>
-    <p style='color:#4a235a; margin-bottom:0;'>This boxplot compares the distribution of addiction scores
-    between genders. Female respondents show a slightly higher median score
-    and a wider interquartile range, suggesting more variability in this group.</p>
-    </div>
-    """, unsafe_allow_html=True)
+st.subheader("Addiction Score by Gender")
+fig, ax = plt.subplots()
+sns.boxplot(data=df, x="Sex", y="Addiction Score", ax=ax, palette="RdPu")
+ax.set_xlabel("Gender")
+ax.set_ylabel("Addiction Score (BFAS)")
+st.pyplot(fig)
+st.markdown("""
+<div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
+<h5 style='color:#4a235a;'>📊 Summary:</h5>
+<p style='color:#4a235a; margin-bottom:0;'>This boxplot compares the distribution of addiction scores
+between genders. Female respondents show a slightly higher median score
+and a wider interquartile range, suggesting more variability in this group.</p>
+</div>
+""", unsafe_allow_html=True)
+
+st.divider()
 
 # --- V2: Depression Score by Economic Status (Violin Plot) ---
-with col2:
-    st.subheader("Depression Score by Economic Status")
-    fig, ax = plt.subplots()
-    sns.violinplot(data=df, x="Economic Status", y="Depression Score", ax=ax, inner="quartile", palette="PuRd")
-    ax.set_xlabel("Economic Status")
-    ax.set_ylabel("Depression Score (PHQ-9)")
-    st.pyplot(fig)
-    st.markdown("""
-    <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-    <h5 style='color:#4a235a;'>🎻 Summary:</h5>
-    <p style='color:#4a235a; margin-bottom:0;'>The 'Dissatisfied' group not only has a higher median
-    depression score but also a wider distribution, indicating a greater
-    prevalence of both mild and severe depressive symptoms compared
-    to the 'Satisfied' group.</p>
-    </div>
-    """, unsafe_allow_html=True)
+st.subheader("Depression Score by Economic Status")
+fig, ax = plt.subplots()
+sns.violinplot(data=df, x="Economic Status", y="Depression Score", ax=ax, inner="quartile", palette="PuRd")
+ax.set_xlabel("Economic Status")
+ax.set_ylabel("Depression Score (PHQ-9)")
+st.pyplot(fig)
+st.markdown("""
+<div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
+<h5 style='color:#4a235a;'>🎻 Summary:</h5>
+<p style='color:#4a235a; margin-bottom:0;'>The 'Dissatisfied' group not only has a higher median
+depression score but also a wider distribution, indicating a greater
+prevalence of both mild and severe depressive symptoms compared
+to the 'Satisfied' group.</p>
+</div>
+""", unsafe_allow_html=True)
 
 st.divider()
 
@@ -138,7 +131,7 @@ except Exception as e:
 
 st.divider()
 
-# --- UPDATED OVERALL SUMMARY BOX ---
+# --- Overall Summary Box ---
 st.markdown("""
 <div style='background-color:#f3e5f5; padding:20px; border-radius:15px; border: 1px solid #d63384;'>
 <h4 style='color:#4a235a;'>💬 Overall Objective 2 Summary</h4>
