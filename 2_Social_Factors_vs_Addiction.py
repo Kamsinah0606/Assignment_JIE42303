@@ -4,80 +4,106 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import plotly.express as px
 
-sns.set_theme(style="whitegrid", palette="mako")
+# ------------------------------------------------
+# Data Loading and Cleaning Function
+# ------------------------------------------------
+@st.cache_data
+def load_data():
+    DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/refs/heads/main/DataBase.csv"
+    df = pd.read_csv(DATA_URL)
+    
+    # --- Data Cleaning and Fixing ---
+    sex_mapping = {0: 'Male', 1: 'Female', 2: 'I Do Not Want To Disclose'}
+    df['Sex'] = df['Sex01'].map(sex_mapping).fillna('Unknown')
+    
+    df = df.rename(columns={
+        'PHQ-9 total': 'Depression Score',
+        'AIS total': 'Insomnia Score',
+        'BFAS total': 'Addiction Score',
+        'Economic status': 'Economic Status'
+    })
+    
+    employment_mapping = {
+        "I don't work and rely on savings or familial support": "Unemployed (Support)",
+        "I engage in casual, part-time work": "Part-time Work",
+        "I work full-time": "Full-time Work",
+        "I don't work and rely on scholarships": "Unemployed (Scholarship)"
+    }
+    df['Employment'] = df['Employment'].map(employment_mapping).fillna(df['Employment'])
+    return df
 
-st.title("💜 Objective 2: Social Factors vs Addiction (BFAS Total)")
-st.info("To examine how social factors such as gender, age, and economic status relate to addiction levels (BFAS Total).")
+df = load_data()
 
-DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/refs/heads/main/DataBase_Preprocessed.csv"
-df = pd.read_csv(DATA_URL)
+# ------------------------------------------------
+# Page 2: Score Comparisons
+# ------------------------------------------------
+st.title("📊 Objective 2: Score Comparisons")
+st.info("To examine how depression, insomnia, and addiction levels differ across key demographic and academic groups.")
+st.divider()
 
-# --- FIX ---
-# Replace the failing line with the mapping from 'Sex01' to 'Sex'
-# df["Sex"] = df["Sex"].str.strip().str.title() # <- This was the error
-sex_mapping = {0: 'Female', 1: 'Male', 2: 'I Do Not Want To Disclose'}
-df['Sex'] = df['Sex01'].map(sex_mapping).fillna('Unknown')
-# --- END FIX ---
+# --- Layout ---
+col1, col2 = st.columns(2)
 
+# --- V1: Addiction Score by Gender (Boxplot) ---
+with col1:
+    st.subheader("Addiction Score by Gender")
+    fig, ax = plt.subplots()
+    sns.boxplot(data=df, x="Sex", y="Addiction Score", ax=ax, palette="pastel")
+    ax.set_xlabel("Gender")
+    ax.set_ylabel("Addiction Score (BFAS)")
+    st.pyplot(fig)
+    st.markdown("""
+    **Summary:** This boxplot compares the distribution of addiction scores
+    between genders. Female respondents show a slightly higher median score
+    and a wider interquartile range, suggesting more variability in this group.
+    """)
 
-plt.rcParams['axes.facecolor'] = '#fff8f9'
-plt.rcParams['figure.facecolor'] = '#fff8f9'
+# --- V2: Depression Score by Economic Status (Violin Plot) ---
+with col2:
+    st.subheader("Depression Score by Economic Status")
+    fig, ax = plt.subplots()
+    sns.violinplot(data=df, x="Economic Status", y="Depression Score", ax=ax, inner="quartile", palette="muted")
+    ax.set_xlabel("Economic Status")
+    ax.set_ylabel("Depression Score (PHQ-9)")
+    st.pyplot(fig)
+    st.markdown("""
+    **Summary:** The 'Dissatisfied' group not only has a higher median
+    depression score but also a wider distribution, indicating a greater
+    prevalence of both mild and severe depressive symptoms compared
+    to the 'Satisfied' group.
+    """)
 
 st.divider()
 
-# V4: Boxplot — BFAS Total by Gender
-# This code now works because df["Sex"] exists
-fig, ax = plt.subplots(figsize=(6,4))
-sns.boxplot(x="Sex", y="BFAS total", data=df, ax=ax,
-    palette={"Male":"#6a5acd","Female":"#ff80ab","I Do Not Want To Disclose":"#b39ddb"})
-ax.set_title("BFAS Total by Gender", color="#4a235a")
-st.pyplot(fig)
+# --- V3: Insomnia Score by Year of Study (Line Plot) ---
+st.subheader("Average Insomnia Score by Year of Study")
 
-st.markdown("""
-<div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-<h5 style='color:#4a235a;'>📊 Summary:</h5>
-<p style='color:#4a235a;'>Female respondents show slightly higher BFAS totals, possibly indicating greater social engagement or emotional connectivity through online platforms.</p>
-</div>
-""", unsafe_allow_html=True)
-
-st.divider()
-
-# V5: Scatter Plot — Age vs BFAS (color by Sex)
-# This code now works because df["Sex"] exists
-fig = px.scatter(
-    df, x="Age", y="BFAS total", color="Sex",
-    color_discrete_map={"Female":"#ff80ab","Male":"#6a5acd","I Do Not Want To Disclose":"#b39ddb"},
-    title="Age vs BFAS Total"
-)
-fig.update_layout(paper_bgcolor="#fff8f9", plot_bgcolor="#fff8f9")
-st.plotly_chart(fig, use_container_width=True)
-
-st.markdown("""
-<div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-<h5 style='color:#4a235a;'>📈 Summary:</h5>
-<p style='color:#4a235a;'>A downward trend suggests that younger individuals report higher BFAS totals, highlighting age as a potential risk factor for online addiction.</p>
-</div>
-""", unsafe_allow_html=True)
+# Group and calculate mean, then sort
+try:
+    # A bit of cleaning to make sorting work (e.g., "1st year" -> 1)
+    df['Year Num'] = df['Year of study'].str.extract('(\d+)').astype(float)
+    avg_insomnia = df.groupby('Year of study').agg(
+        Mean_Insomnia=('Insomnia Score', 'mean'),
+        Year_Num=('Year Num', 'first')
+    ).reset_index().sort_values('Year_Num')
+    
+    fig = px.line(avg_insomnia, x="Year of study", y="Mean_Insomnia", markers=True,
+                  labels={"Year of study": "Year of Study", "Mean_Insomnia": "Average Insomnia Score"})
+    fig.update_layout(xaxis={'categoryorder':'array', 'categoryarray': avg_insomnia["Year of study"]})
+    st.plotly_chart(fig, use_container_width=True)
+    st.markdown("""
+    **Summary:** This line plot shows a noticeable trend where the average
+    insomnia score appears to increase, peaking around the 5th and 6th years of study.
+    This may suggest that academic pressure or stress accumulates over time.
+    """)
+except Exception as e:
+    st.error(f"Could not plot 'Year of study' trend. Error: {e}")
 
 st.divider()
-
-# V6: Violin Plot — Economic Status vs BFAS Total
-fig, ax = plt.subplots(figsize=(8,5))
-sns.violinplot(x="Economic status", y="BFAS total", data=df, ax=ax, palette="RdPu")
-ax.set_title("Distribution of BFAS Total by Economic Status", color="#4a235a")
-st.pyplot(fig)
-
-st.markdown("""
-<div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-<h5 style='color:#4a235a;'>🎻 Summary:</h5>
-<p style='color:#4a235a;'>Respondents with lower economic stability exhibit higher variability in BFAS scores, suggesting stress or coping behavior linked to online use.</p>
-</div>
-""", unsafe_allow_html=True)
-
-st.divider()
-st.markdown("""
-<div style='background-color:#f3e5f5;padding:20px;border-radius:15px;'>
-<h4 style='color:#4a235a;'>💬 Overall Objective 2 Summary</h4>
-<p style='color:#4a235a;'>Social context strongly shapes addiction behavior — gender, age, and financial conditions interact to influence social media dependence intensity.</p>
-</div>
-""", unsafe_allow_html=True)
+st.success("""
+**💬 Overall Objective 2 Summary:** The analysis reveals clear differences in
+psychological scores across social groups. Economic dissatisfaction is strongly
+linked to higher depression scores, while addiction levels vary by gender.
+Furthermore, insomnia scores appear to worsen in later years of study,
+highlighting a potential link between academic progression and sleep quality.
+""")
