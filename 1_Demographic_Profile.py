@@ -71,7 +71,7 @@ with col1:
     # --- UPDATED SUMMARY BOX ---
     st.markdown("""
     <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-    <h5 style='color:#4a235a;'>📊 Summary:</h5>
+    <h5 style='color:#4a235a;'>Summary:</h5>
     <p style='color:#4a235a; margin-bottom:0;'>The histogram shows that the majority of respondents are young adults,
     primarily concentrated between 20 and 25 years old. This aligns with the target
     population of university students.</p>
@@ -115,7 +115,7 @@ with col3:
     # --- UPDATED SUMMARY BOX ---
     st.markdown("""
     <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-    <h5 style='color:#4a235a;'>📈 Summary:</h5>
+    <h5 style='color:#4a235a;'>Summary:</h5>
     <p style='color:#4a235a; margin-bottom:0;'>Most respondents are unemployed and rely on support, and within this
     group, the majority report a "Satisfied" economic status. This is typical for
     a student population.</p>
