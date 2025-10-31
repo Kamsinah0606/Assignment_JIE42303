@@ -9,7 +9,7 @@ sns.set_theme(style="whitegrid", palette="mako")
 st.title("💜 Objective 2: Social Factors vs Addiction (BFAS Total)")
 st.info("To examine how social factors such as gender, age, and economic status relate to addiction levels (BFAS Total).")
 
-DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/refs/heads/main/DataBase.csv"
+DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/refs/heads/main/DataBase_Preprocessed.csv"
 df = pd.read_csv(DATA_URL)
 df["Sex"] = df["Sex"].str.strip().str.title()
 
