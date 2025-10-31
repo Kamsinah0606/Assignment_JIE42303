@@ -55,7 +55,19 @@ df = load_data()
 # Page 2: Score Comparisons
 # ------------------------------------------------
 st.title("💜 Objective 2: Score Comparisons") 
-st.info("To examine how depression, insomnia, and addiction levels differ across key demographic and academic groups.")
+
+# --- UPDATED OBJECTIVE BOX ---
+# Replaced st.info() with a themed markdown box
+st.markdown("""
+<div style='background-color:#f5e6fa; padding:15px; border-radius:12px; margin-bottom: 1.0em;'>
+<p style='color:#4a235a; margin-bottom:0; font-size: 1.0em;'>
+Exploring how depression, insomnia, and addiction scores gently shift across 
+different social and academic circles.
+</p>
+</div>
+""", unsafe_allow_html=True)
+# --- END OF UPDATE ---
+
 st.divider()
 
 col1, col2 = st.columns(2)
@@ -68,7 +80,6 @@ with col1:
     ax.set_xlabel("Gender")
     ax.set_ylabel("Addiction Score (BFAS)")
     st.pyplot(fig)
-    # --- UPDATED SUMMARY BOX ---
     st.markdown("""
     <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
     <h5 style='color:#4a235a;'>📊 Summary:</h5>
@@ -86,7 +97,6 @@ with col2:
     ax.set_xlabel("Economic Status")
     ax.set_ylabel("Depression Score (PHQ-9)")
     st.pyplot(fig)
-    # --- UPDATED SUMMARY BOX ---
     st.markdown("""
     <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
     <h5 style='color:#4a235a;'>🎻 Summary:</h5>
@@ -115,7 +125,6 @@ try:
                       paper_bgcolor=theme_bg, plot_bgcolor=theme_bg, font_color=theme_text)
     fig.update_traces(line_color=theme_primary)
     st.plotly_chart(fig, use_container_width=True)
-    # --- UPDATED SUMMARY BOX ---
     st.markdown("""
     <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
     <h5 style='color:#4a235a;'>📈 Summary:</h5>
