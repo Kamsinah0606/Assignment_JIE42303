@@ -8,7 +8,7 @@ st.set_page_config(
     layout="wide"
 )
 
-st.title("🎓 The Indirect Effect of TikTok Use on Depressive Symptoms")
+st.title("The Indirect Effect of TikTok Use on Depressive Symptoms")
 
 st.markdown("""
 Welcome to the **Student Survey Dashboard** — exploring:
@@ -25,8 +25,9 @@ Use the sidebar to explore the three study objectives:
 2️⃣ **Social Factors vs Addiction**  
 3️⃣ **Psychological & Behavioral Trends**
 
-Developed by **NOORHAFIZAH BINTI MUHAMMAD**  
-Course: *Data Mining and Applications (JIE42303)*  
+Developed by **NOORHAFIZAH BINTI MUHAMMAD**
+Assessment: *Assignment*
+Course: *Scientific Visualization (JIE42403)*  
 University Malaysia Kelantan
 """)
 
