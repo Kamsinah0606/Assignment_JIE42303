@@ -8,7 +8,7 @@ sns.set_theme(style="whitegrid", palette="rocket")
 st.title("🌸 Objective 1: Demographic Distribution")
 st.info("To analyze the demographic distribution of respondents based on age, gender, and employment type.")
 
-DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/refs/heads/main/DataBase.csv"
+DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/refs/heads/main/DataBase_Preprocessed.csv"
 df = pd.read_csv(DATA_URL)
 
 plt.rcParams['axes.facecolor'] = '#fff8f9'
