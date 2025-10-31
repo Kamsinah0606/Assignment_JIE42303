@@ -68,7 +68,7 @@ A closer look at the demographic, economic, and academic profile of our survey r
 # --- 2. SUMMARY BOX (100-150 words) ---
 st.markdown("""
 <div style='background-color:#f3e5f5; padding:20px; border-radius:15px; border: 1px solid #d63384; margin-bottom: 1.0em;'>
-<h4 style='color:#4a235a;'>🌼 Objective 1 Summary</h4>
+<h4 style='color:#4a235a;'>Summary Box of Objective 1</h4>
 <p style='color:#4a235a; margin-bottom:0;'>
 This page profiles the 173 survey respondents. The <b>Age Distribution</b> histogram confirms the sample aligns with the target population, showing a high concentration of young adults between 20-25. The <b>Gender Distribution</b> pie chart reveals a relatively balanced cohort, with female respondents (59.5%) slightly outnumbering male respondents (39.9%). The <b>Employment vs. Economic Status</b> grouped bar chart provides key context: the vast majority of participants are 'Unemployed (Support),' which is typical for full-time students. Within this group, most report a 'Satisfied' economic status. Finally, the <b>Field of Study</b> bar chart highlights the academic diversity of the sample, with 'Pharmacy' (23.1%) and 'Psychology' (17.9%) being the most common fields. Overall, the demographic baseline is a young, balanced, and academically varied student body.
 </p>
@@ -91,7 +91,7 @@ ax.set_ylabel("Frequency")
 st.pyplot(fig)
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-<h5 style='color:#4a235a;'>📊 Interpretation:</h5>
+<h5 style='color:#4a235a;'>Interpretation:</h5>
 <p style='color:#4a235a; margin-bottom:0;'>The histogram shows that the majority of respondents are young adults,
 primarily concentrated between 20 and 25 years old. This aligns with the target
 population of university students.</p>
@@ -111,7 +111,7 @@ fig.update_layout(paper_bgcolor=theme_bg, plot_bgcolor=theme_bg, font_color=them
 st.plotly_chart(fig, use_container_width=True)
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-<h5 style='color:#4a235a;'>💬 Interpretation:</h5>
+<h5 style='color:#4a235a;'>Interpretation:</h5>
 <p style='color:#4a235a; margin-bottom:0;'>The gender ratio is relatively balanced, with a slightly higher
 proportion of female respondents (59.5% vs 39.9%). This ensures that the analysis can provide
 representative insights across genders.</p>
@@ -131,7 +131,7 @@ plt.legend(title="Economic Status")
 st.pyplot(fig)
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-<h5 style='color:#4a235a;'>📈 Interpretation:</h5>
+<h5 style='color:#4a235a;'>Interpretation:</h5>
 <p style='color:#4a235a; margin-bottom:0;'>Most respondents are unemployed and rely on support, and within this
 group, the majority report a "Satisfied" economic status. This is typical for
 a student population.</p>
@@ -156,7 +156,7 @@ fig.update_layout(yaxis={'categoryorder':'total ascending'},
 st.plotly_chart(fig, use_container_width=True)
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-<h5 style='color:#4a235a;'>🎓 Interpretation:</h5>
+<h5 style='color:#4a235a;'>Interpretation:</h5>
 <p style='color:#4a235a; margin-bottom:0;'>This chart shows the academic diversity of the sample.
 'Pharmacy' (23.1%) and 'Psychology' (17.9%) are the most represented fields in this dataset.</p>
 </div>
