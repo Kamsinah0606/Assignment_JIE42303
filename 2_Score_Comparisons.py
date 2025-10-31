@@ -81,6 +81,8 @@ st.divider()
 # --- 3. VISUALIZATIONS & INTERPRETATION ---
 st.subheader("Visualizations & Interpretation")
 
+st.divider()
+
 # --- V1: Addiction Score by Gender (Boxplot) ---
 st.subheader("Addiction Score by Gender")
 fig, ax = plt.subplots()
