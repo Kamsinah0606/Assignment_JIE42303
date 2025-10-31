@@ -3,6 +3,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import plotly.express as px
+import numpy as np
 
 # ------------------------------------------------
 # Theme & Plot Settings
@@ -22,16 +23,40 @@ plt.rcParams['grid.color'] = '#f5e6fa'
 sns.set_theme(style="whitegrid", rc=plt.rcParams)
 
 # ------------------------------------------------
-# Data Loading and Cleaning Function
+# Data Loading and Cleaning Function (from Colab)
 # ------------------------------------------------
 @st.cache_data
 def load_data():
-    DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/refs/heads/main/Insomnic%20.csv"
+    DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/refs/heads/main/DataBase.csv"
     df = pd.read_csv(DATA_URL)
     
+    # 1. Remove duplicates
+    df = df.drop_duplicates()
+
+    # 2. Handle missing values
+    df = df.fillna(df.mean(numeric_only=True))
+    df = df.fillna(df.mode().iloc[0])
+
+    # 3. Handle outliers (cap at 3 std dev)
+    for col in df.select_dtypes(include=np.number).columns:
+        upper = df[col].mean() + 3*df[col].std()
+        lower = df[col].mean() - 3*df[col].std()
+        df[col] = np.where((df[col] > upper) | (df[col] < lower), df[col].median(), df[col])
+    
+    # 4. Create new 'Employment_Simplified' column
+    employment_mapping = {
+        "I don't work and rely on savings or familial support": 'A',
+        "I engage in casual, part-time work": 'B',
+        "I work full-time": 'C',
+        "I don't work and rely on scholarships": 'D'
+    }
+    df['Employment_Simplified'] = df['Employment'].replace(employment_mapping)
+    
+    # 5. Map Sex column
     sex_mapping = {0: 'Male', 1: 'Female', 2: 'I Do Not Want To Disclose'}
     df['Sex'] = df['Sex01'].map(sex_mapping).fillna(df['Sex'].str.title())
     
+    # 6. Rename score columns for clarity
     df = df.rename(columns={
         'PHQ-9 total': 'Depression Score',
         'AIS total': 'Insomnia Score',
@@ -39,13 +64,6 @@ def load_data():
         'Economic status': 'Economic Status'
     })
     
-    employment_mapping = {
-        "I don't work and rely on savings or familial support": "Unemployed (Support)",
-        "I engage in casual, part-time work": "Part-time Work",
-        "I work full-time": "Full-time Work",
-        "I don't work and rely on scholarships": "Unemployed (Scholarship)"
-    }
-    df['Employment'] = df['Employment'].map(employment_mapping).fillna(df['Employment'])
     return df
 
 df = load_data()
@@ -53,9 +71,9 @@ df = load_data()
 # ------------------------------------------------
 # Page 3: Correlation Analysis
 # ------------------------------------------------
-st.title("Objective 3: Correlation Analysis") 
+st.title("💖 Objective 3: Correlation Analysis") 
 
-# --- 1. OBJECTIVE STATEMENT (WITH TITLE) ---
+# --- 1. OBJECTIVE STATEMENT ---
 st.markdown("""
 <div style='background-color:#f5e6fa; padding:15px; border-radius:12px; margin-bottom: 1.0em;'>
 <h5 style='color:#4a235a; margin-bottom: 0.5em;'>Objective Statement</h5>
@@ -64,14 +82,13 @@ Uncovering the delicate connections between the key psychological and behavioral
 </p>
 </div>
 """, unsafe_allow_html=True)
-# --- END OF UPDATE ---
 
 # --- 2. SUMMARY BOX (100-150 words) ---
 st.markdown("""
 <div style='background-color:#f3e5f5; padding:20px; border-radius:15px; border: 1px solid #d63384; margin-bottom: 1.0em;'>
-<h4 style='color:#4a235a;'>Objective 3 Summary</h4>
+<h4 style='color:#4a235a;'>🧠 Objective 3 Summary</h4>
 <p style='color:#4a235a; margin-bottom:0;'>
-This objective investigates the relationships between the psychological scores. The <b>Insomnia vs. Depression</b> scatter plot reveals the strongest finding: a significant <b>positive correlation of +0.64</b>. The tight clustering of data along the trendline suggests a powerful co-aggravating cycle, where poor sleep and depressive symptoms are deeply linked. A similar, though more moderate, relationship is seen in the <b>Addiction vs. Insomnia</b> scatter plot, which shows a positive correlation of <b>+0.42</b>. This link persists across genders, with female respondents (pink) being more represented in the high-score quadrant. The <b>Correlation Heatmap</b> provides a comprehensive summary, confirming these two positive relationships. It also shows that <b>Age</b> has a slight negative correlation with all three scores (Depression, Insomnia, and Addiction), suggesting older students in this sample reported slightly better mental health. This highlights a critical interplay between sleep, mental health, and digital behavior.
+This objective investigates the relationships between the psychological scores from the cleaned dataset. The <b>Insomnia vs. Depression</b> scatter plot reveals the strongest finding: a significant <b>positive correlation of +0.64</b>. The tight clustering of data along the trendline suggests a powerful co-aggravating cycle, where poor sleep and depressive symptoms are deeply linked. A similar, though more moderate, relationship is seen in the <b>Addiction vs. Insomnia</b> scatter plot, which shows a positive correlation of <b>+0.42</b>. This link persists across genders, with female respondents (pink) being more represented in the high-score quadrant. The <b>Correlation Heatmap</b> provides a comprehensive summary, confirming these two positive relationships. It also shows that <b>Age</b> has a slight negative correlation with all three scores, suggesting older students in this sample reported slightly better mental health.
 </p>
 </div>
 """, unsafe_allow_html=True)
@@ -80,8 +97,6 @@ st.divider()
 
 # --- 3. VISUALIZATIONS & INTERPRETATION ---
 st.subheader("Visualizations & Interpretation")
-
-st.divider()
 
 # --- V1: Insomnia vs. Depression (Scatter Plot) ---
 st.subheader("Insomnia Score vs. Depression Score")
@@ -94,7 +109,7 @@ fig.update_layout(xaxis_title="Insomnia Score (AIS)", yaxis_title="Depression Sc
 st.plotly_chart(fig, use_container_width=True)
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-<h5 style='color:#4a235a;'>Interpretation:</h5>
+<h5 style='color:#4a235a;'>🔗 Interpretation:</h5>
 <p style='color:#4a235a; margin-bottom:0;'>This plot reveals a strong, positive linear relationship (correlation: +0.64). As
 Insomnia Scores increase, Depression Scores tend to increase as well. The
 tight clustering around the trendline suggests a powerful link between
@@ -115,7 +130,7 @@ fig.update_layout(xaxis_title="Insomnia Score (AIS)", yaxis_title="Addiction Sco
 st.plotly_chart(fig, use_container_width=True)
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-<h5 style='color:#4a235a;'>Interpretation:</h5>
+<h5 style='color:#4a235a;'>📱 Interpretation:</h5>
 <p style='color:#4a235a; margin-bottom:0;'>A moderate positive correlation (+0.42) is also visible here. Higher
 insomnia is linked to higher addiction scores. By coloring for gender,
 we can observe that the relationship holds for all groups, though
