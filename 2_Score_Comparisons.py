@@ -5,11 +5,27 @@ import matplotlib.pyplot as plt
 import plotly.express as px
 
 # ------------------------------------------------
+# Theme & Plot Settings
+# ------------------------------------------------
+theme_bg = "#fff8f9"
+theme_text = "#4a235a"
+theme_primary = "#d63384"
+
+plt.rcParams['figure.facecolor'] = theme_bg
+plt.rcParams['axes.facecolor'] = theme_bg
+plt.rcParams['text.color'] = theme_text
+plt.rcParams['axes.labelcolor'] = theme_text
+plt.rcParams['xtick.color'] = theme_text
+plt.rcParams['ytick.color'] = theme_text
+plt.rcParams['grid.color'] = '#f5e6fa'
+sns.set_theme(style="whitegrid", rc=plt.rcParams)
+
+# ------------------------------------------------
 # Data Loading and Cleaning Function
 # ------------------------------------------------
 @st.cache_data
 def load_data():
-    DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/refs/heads/main/DataBase.csv"
+    DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/refs/heads/main/DataBase_Preprocessed.csv"
     df = pd.read_csv(DATA_URL)
     
     # --- Data Cleaning and Fixing ---
@@ -37,7 +53,7 @@ df = load_data()
 # ------------------------------------------------
 # Page 2: Score Comparisons
 # ------------------------------------------------
-st.title("📊 Objective 2: Score Comparisons")
+st.title("💜 Objective 2: Score Comparisons") # Added emoji
 st.info("To examine how depression, insomnia, and addiction levels differ across key demographic and academic groups.")
 st.divider()
 
@@ -48,7 +64,8 @@ col1, col2 = st.columns(2)
 with col1:
     st.subheader("Addiction Score by Gender")
     fig, ax = plt.subplots()
-    sns.boxplot(data=df, x="Sex", y="Addiction Score", ax=ax, palette="pastel")
+    # Updated palette to match theme
+    sns.boxplot(data=df, x="Sex", y="Addiction Score", ax=ax, palette="RdPu")
     ax.set_xlabel("Gender")
     ax.set_ylabel("Addiction Score (BFAS)")
     st.pyplot(fig)
@@ -62,7 +79,8 @@ with col1:
 with col2:
     st.subheader("Depression Score by Economic Status")
     fig, ax = plt.subplots()
-    sns.violinplot(data=df, x="Economic Status", y="Depression Score", ax=ax, inner="quartile", palette="muted")
+    # Updated palette to match theme
+    sns.violinplot(data=df, x="Economic Status", y="Depression Score", ax=ax, inner="quartile", palette="PuRd")
     ax.set_xlabel("Economic Status")
     ax.set_ylabel("Depression Score (PHQ-9)")
     st.pyplot(fig)
@@ -78,9 +96,7 @@ st.divider()
 # --- V3: Insomnia Score by Year of Study (Line Plot) ---
 st.subheader("Average Insomnia Score by Year of Study")
 
-# Group and calculate mean, then sort
 try:
-    # A bit of cleaning to make sorting work (e.g., "1st year" -> 1)
     df['Year Num'] = df['Year of study'].str.extract('(\d+)').astype(float)
     avg_insomnia = df.groupby('Year of study').agg(
         Mean_Insomnia=('Insomnia Score', 'mean'),
@@ -89,7 +105,10 @@ try:
     
     fig = px.line(avg_insomnia, x="Year of study", y="Mean_Insomnia", markers=True,
                   labels={"Year of study": "Year of Study", "Mean_Insomnia": "Average Insomnia Score"})
-    fig.update_layout(xaxis={'categoryorder':'array', 'categoryarray': avg_insomnia["Year of study"]})
+    fig.update_layout(xaxis={'categoryorder':'array', 'categoryarray': avg_insomnia["Year of study"]},
+                      paper_bgcolor=theme_bg, plot_bgcolor=theme_bg, font_color=theme_text)
+    # Updated line color to match theme
+    fig.update_traces(line_color=theme_primary)
     st.plotly_chart(fig, use_container_width=True)
     st.markdown("""
     **Summary:** This line plot shows a noticeable trend where the average
