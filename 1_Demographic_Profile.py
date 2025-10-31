@@ -26,12 +26,9 @@ sns.set_theme(style="whitegrid", rc=plt.rcParams)
 # ------------------------------------------------
 @st.cache_data
 def load_data():
-    # --- UPDATED DATA URL ---
     DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/main/Insomnic%20.csv"
     df = pd.read_csv(DATA_URL)
     
-    # Cleaning is already done in the CSV.
-    # We just standardize the string columns for consistent plotting.
     df['Sex'] = df['Sex'].str.title()
     df['Economic status'] = df['Economic status'].replace({'Satisfy': 'Satisfied', 'Dissatisfy': 'Dissatisfied'})
     
@@ -70,6 +67,7 @@ st.divider()
 st.subheader("Visualizations & Interpretation")
 
 # --- V1: Age Distribution (Histogram) ---
+# This plot (Seaborn) already uses the correct grid from rcParams
 st.subheader("Age Distribution of Respondents")
 fig, ax = plt.subplots()
 sns.histplot(df["Age"], bins=10, kde=True, ax=ax, color=theme_primary)
@@ -88,8 +86,8 @@ population of university students.</p>
 st.divider()
 
 # --- V2: Gender Distribution (Pie Chart) ---
+# This plot (Plotly Pie) has no grid, so no change needed.
 st.subheader("Gender Distribution")
-# Uses the 'Sex' string column from the new CSV
 gender_counts = df["Sex"].value_counts().reset_index()
 gender_counts.columns = ['Sex', 'Count']
 fig = px.pie(gender_counts, values='Count', names='Sex', 
@@ -108,10 +106,10 @@ representative insights across genders.</p>
 
 st.divider()
 
-# --- V3: Economic vs. Employment Status (UPDATED) ---
+# --- V3: Economic vs. Employment Status ---
+# This plot (Seaborn) already uses the correct grid from rcParams
 st.subheader("Economic vs. Employment Status")
 fig, ax = plt.subplots(figsize=(10, 6))
-# Updated to use 'Economic status' and 'Employment_Simplified' from the new CSV
 sns.countplot(data=df, x="Economic status", hue="Employment_Simplified", ax=ax, palette="RdPu")
 ax.set_title("Economic Status vs. Employment Status")
 ax.set_xlabel("Economic Status")
@@ -131,7 +129,7 @@ which is expected for a student population.
 
 st.divider()
 
-# --- V4: Field of Study (Bar Chart) ---
+# --- V4: Field of Study (Bar Chart) (GRID UPDATED) ---
 st.subheader("Respondents by Field of Study")
 study_counts = df["Field of study"].value_counts(normalize=True).head(10).reset_index()
 study_counts.columns = ['Field', 'Percentage']
@@ -142,8 +140,11 @@ fig = px.bar(study_counts, x='Percentage', y='Field', orientation='h',
              text='Percentage',
              color_discrete_sequence=[theme_primary]) 
 fig.update_traces(texttemplate='%{text}%', textposition='outside')
+# --- THIS IS THE UPDATE ---
 fig.update_layout(yaxis={'categoryorder':'total ascending'},
-                  paper_bgcolor=theme_bg, plot_bgcolor=theme_bg, font_color=theme_text)
+                  paper_bgcolor=theme_bg, plot_bgcolor=theme_bg, font_color=theme_text,
+                  xaxis_gridcolor='#f5e6fa') # Set grid color to match theme
+# --- END OF UPDATE ---
 st.plotly_chart(fig, use_container_width=True)
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
