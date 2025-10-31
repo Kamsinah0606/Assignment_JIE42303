@@ -52,8 +52,9 @@ df = load_data()
 # ------------------------------------------------
 # Page 2: Score Comparisons
 # ------------------------------------------------
-st.title("Objective 2: Score Comparisons") 
+st.title("💜 Objective 2: Score Comparisons") 
 
+# --- 1. OBJECTIVE STATEMENT ---
 st.markdown("""
 <div style='background-color:#f5e6fa; padding:15px; border-radius:12px; margin-bottom: 1.0em;'>
 <p style='color:#4a235a; margin-bottom:0; font-size: 1.0em;'>
@@ -63,7 +64,20 @@ different social and academic circles.
 </div>
 """, unsafe_allow_html=True)
 
+# --- 2. SUMMARY BOX (100-150 words) ---
+st.markdown("""
+<div style='background-color:#f3e5f5; padding:20px; border-radius:15px; border: 1px solid #d63384; margin-bottom: 1.0em;'>
+<h4 style='color:#4a235a;'>💬 Objective 2 Summary</h4>
+<p style='color:#4a235a; margin-bottom:0;'>
+This objective examines how key scores differ across social and academic groups. The <b>Addiction Score by Gender</b> boxplot reveals that while both groups have similar medians, female respondents exhibit a wider interquartile range and a slightly higher mean, suggesting greater variability in social media addiction. A more pronounced finding comes from the <b>Depression Score by Economic Status</b> violin plot. The 'Dissatisfied' group not only shows a visibly higher median depression score (PHQ-9) but also a much wider distribution, indicating a greater prevalence of both mild and severe depressive symptoms. Finally, the <b>Average Insomnia Score by Year of Study</b> line plot suggests a concerning trend. Average insomnia scores appear to worsen as academic tenure increases, with a noticeable peak in the 5th and 6th years. This highlights that academic pressure and seniority may be contributing factors to poor sleep quality.
+</p>
+</div>
+""", unsafe_allow_html=True)
+
 st.divider()
+
+# --- 3. VISUALIZATIONS & INTERPRETATION ---
+st.subheader("Visualizations & Interpretation")
 
 # --- V1: Addiction Score by Gender (Boxplot) ---
 st.subheader("Addiction Score by Gender")
@@ -74,7 +88,7 @@ ax.set_ylabel("Addiction Score (BFAS)")
 st.pyplot(fig)
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-<h5 style='color:#4a235a;'>Summary:</h5>
+<h5 style='color:#4a235a;'>📊 Interpretation:</h5>
 <p style='color:#4a235a; margin-bottom:0;'>This boxplot compares the distribution of addiction scores
 between genders. Female respondents show a slightly higher median score
 and a wider interquartile range, suggesting more variability in this group.</p>
@@ -92,7 +106,7 @@ ax.set_ylabel("Depression Score (PHQ-9)")
 st.pyplot(fig)
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-<h5 style='color:#4a235a;'>Summary:</h5>
+<h5 style='color:#4a235a;'>🎻 Interpretation:</h5>
 <p style='color:#4a235a; margin-bottom:0;'>The 'Dissatisfied' group not only has a higher median
 depression score but also a wider distribution, indicating a greater
 prevalence of both mild and severe depressive symptoms compared
@@ -120,7 +134,7 @@ try:
     st.plotly_chart(fig, use_container_width=True)
     st.markdown("""
     <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-    <h5 style='color:#4a235a;'>Summary:</h5>
+    <h5 style='color:#4a235a;'>📈 Interpretation:</h5>
     <p style='color:#4a235a; margin-bottom:0;'>This line plot shows a noticeable trend where the average
     insomnia score appears to increase, peaking around the 5th and 6th years of study.
     This may suggest that academic pressure or stress accumulates over time.</p>
@@ -128,17 +142,3 @@ try:
     """, unsafe_allow_html=True)
 except Exception as e:
     st.error(f"Could not plot 'Year of study' trend. Error: {e}")
-
-st.divider()
-
-# --- Overall Summary Box ---
-st.markdown("""
-<div style='background-color:#f3e5f5; padding:20px; border-radius:15px; border: 1px solid #d63384;'>
-<h4 style='color:#4a235a;'>Overall Objective 2 Summary</h4>
-<p style='color:#4a235a; margin-bottom:0;'>The analysis reveals clear differences in
-psychological scores across social groups. Economic dissatisfaction is strongly
-linked to higher depression scores, while addiction levels vary by gender.
-Furthermore, insomnia scores appear to worsen in later years of study,
-highlighting a potential link between academic progression and sleep quality.</p>
-</div>
-""", unsafe_allow_html=True)
