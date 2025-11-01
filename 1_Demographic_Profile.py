@@ -21,13 +21,6 @@ plt.rcParams['ytick.color'] = theme_text
 plt.rcParams['grid.color'] = '#f5e6fa' # Light purple grid
 sns.set_theme(style="whitegrid", rc=plt.rcParams)
 
-    col1, col2, col3, col4 = st.columns(4)
-    
-col1.metric(label="PLO 2", value=f"3.3", help="PLO 2: Cognitive Skill", border=True)
-col2.metric(label="PLO 3", value=f"3.5", help="PLO 3: Digital Skill", border=True)
-col3.metric(label="PLO 4", value=f"4.0", help="PLO 4: Interpersonal Skill", border=True)
-col4.metric(label="PLO 5", value=f"4.3", help="PLO 5: Communication Skill", border=True)
-
 # ------------------------------------------------
 # Data Loading Function (Simplified)
 # ------------------------------------------------
@@ -47,6 +40,14 @@ df = load_data()
 # Page 1: Demographic Profile
 # ------------------------------------------------
 st.title("🌸 Objective 1: Demographic Profile")
+
+# --- PLO METRICS SECTION (FIXED INDENTATION) ---
+col1, col2, col3, col4 = st.columns(4)
+col1.metric(label="PLO 2", value="3.3", help="PLO 2: Cognitive Skill")
+col2.metric(label="PLO 3", value="3.5", help="PLO 3: Digital Skill")
+col3.metric(label="PLO 4", value="4.0", help="PLO 4: Interpersonal Skill")
+col4.metric(label="PLO 5", value="4.3", help="PLO 5: Communication Skill")
+# --- END OF FIX ---
 
 # --- 1. OBJECTIVE STATEMENT ---
 st.markdown("""
@@ -74,7 +75,6 @@ st.divider()
 st.subheader("Visualizations & Interpretation")
 
 # --- V1: Age Distribution (Histogram) ---
-# This plot (Seaborn) already uses the correct grid from rcParams
 st.subheader("Age Distribution of Respondents")
 fig, ax = plt.subplots()
 sns.histplot(df["Age"], bins=10, kde=True, ax=ax, color=theme_primary)
@@ -93,7 +93,6 @@ population of university students.</p>
 st.divider()
 
 # --- V2: Gender Distribution (Pie Chart) ---
-# This plot (Plotly Pie) has no grid, so no change needed.
 st.subheader("Gender Distribution")
 gender_counts = df["Sex"].value_counts().reset_index()
 gender_counts.columns = ['Sex', 'Count']
@@ -114,7 +113,6 @@ representative insights across genders.</p>
 st.divider()
 
 # --- V3: Economic vs. Employment Status ---
-# This plot (Seaborn) already uses the correct grid from rcParams
 st.subheader("Economic vs. Employment Status")
 fig, ax = plt.subplots(figsize=(10, 6))
 sns.countplot(data=df, x="Economic status", hue="Employment_Simplified", ax=ax, palette="RdPu")
@@ -147,11 +145,9 @@ fig = px.bar(study_counts, x='Percentage', y='Field', orientation='h',
              text='Percentage',
              color_discrete_sequence=[theme_primary]) 
 fig.update_traces(texttemplate='%{text}%', textposition='outside')
-# --- THIS IS THE UPDATE ---
 fig.update_layout(yaxis={'categoryorder':'total ascending'},
                   paper_bgcolor=theme_bg, plot_bgcolor=theme_bg, font_color=theme_text,
                   xaxis_gridcolor='#f5e6fa') # Set grid color to match theme
-# --- END OF UPDATE ---
 st.plotly_chart(fig, use_container_width=True)
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
