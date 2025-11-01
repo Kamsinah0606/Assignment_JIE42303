@@ -36,13 +36,6 @@ def load_data():
 
 df = load_data()
 
-col1, col2, col3, col4 = st.columns(4)
-    
-col1.metric(label="PLO 2", value=f"3.3", help="PLO 2: Cognitive Skill", border=True)
-col2.metric(label="PLO 3", value=f"3.5", help="PLO 3: Digital Skill", border=True)
-col3.metric(label="PLO 4", value=f"4.0", help="PLO 4: Interpersonal Skill", border=True)
-col4.metric(label="PLO 5", value=f"4.3", help="PLO 5: Communication Skill", border=True)
-
 # ------------------------------------------------
 # Page 2: Score Comparisons
 # ------------------------------------------------
@@ -75,7 +68,6 @@ st.divider()
 st.subheader("Visualizations & Interpretation")
 
 # --- V1: Addiction Score by Gender (Boxplot) ---
-# This plot (Seaborn) already uses the correct grid from rcParams
 st.subheader("Addiction Score by Gender")
 fig, ax = plt.subplots()
 sns.boxplot(data=df, x="Sex", y="BFAS total", hue="Sex", ax=ax, palette="RdPu", legend=False)
@@ -94,7 +86,6 @@ and a wider interquartile range, suggesting more variability in this group.</p>
 st.divider()
 
 # --- V2: Depression Score by Economic Status (Violin Plot) ---
-# This plot (Seaborn) already uses the correct grid from rcParams
 st.subheader("Depression Score by Economic Status")
 fig, ax = plt.subplots()
 sns.violinplot(data=df, x="Economic status", y="PHQ-9 total", ax=ax, inner="quartile", palette="PuRd")
@@ -113,7 +104,7 @@ to the 'Satisfied' group.</p>
 
 st.divider()
 
-# --- V3: Insomnia Score by Year of Study (Line Plot) (GRID UPDATED) ---
+# --- V3: Insomnia Score by Year of Study (Line Plot) ---
 st.subheader("Average Insomnia Score by Year of Study")
 
 try:
@@ -125,11 +116,9 @@ try:
     
     fig = px.line(avg_insomnia, x="Year of study", y="Mean_Insomnia", markers=True,
                   labels={"Year of study": "Year of Study", "Mean_Insomnia": "Average Insomnia Score"})
-    # --- THIS IS THE UPDATE ---
     fig.update_layout(xaxis={'categoryorder':'array', 'categoryarray': avg_insomnia["Year of study"]},
                       paper_bgcolor=theme_bg, plot_bgcolor=theme_bg, font_color=theme_text,
                       yaxis_gridcolor='#f5e6fa', xaxis_gridcolor='#f5e6fa') # Set grid color
-    # --- END OF UPDATE ---
     fig.update_traces(line_color=theme_primary)
     st.plotly_chart(fig, use_container_width=True)
     st.markdown("""
