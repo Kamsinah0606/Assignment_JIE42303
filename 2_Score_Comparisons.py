@@ -36,11 +36,6 @@ def load_data():
 
 df = load_data()
 
-# ------------------------------------------------
-# Page 2: Score Comparisons
-# ------------------------------------------------
-st.title("💜 Objective 2: Score Comparisons") 
-
 # --- DYNAMIC METRICS SECTION (UPDATED) ---
 # These values are now calculated directly from the dataset (df)
 
@@ -57,6 +52,11 @@ col2.metric(label="Average Age", value=f"{avg_age:.1f}")
 col3.metric(label="Avg. Depression Score", value=f"{avg_depression:.1f}")
 col4.metric(label="Avg. Insomnia Score", value=f"{avg_insomnia:.1f}")
 # --- END OF UPDATE ---
+
+# ------------------------------------------------
+# Page 2: Score Comparisons
+# ------------------------------------------------
+st.title("💜 Objective 2: Score Comparisons") 
 
 # --- 1. OBJECTIVE STATEMENT ---
 st.markdown("""
