@@ -36,11 +36,6 @@ def load_data():
 
 df = load_data()
 
-# ------------------------------------------------
-# Page 1: Demographic Profile
-# ------------------------------------------------
-st.title("🌸 Objective 1: Demographic Profile")
-
 # --- DYNAMIC METRICS SECTION (UPDATED) ---
 # These values are now calculated directly from the dataset (df)
 
@@ -58,6 +53,10 @@ col3.metric(label="Avg. Depression Score", value=f"{avg_depression:.1f}")
 col4.metric(label="Avg. Insomnia Score", value=f"{avg_insomnia:.1f}")
 # --- END OF UPDATE ---
 
+# ------------------------------------------------
+# Page 1: Demographic Profile
+# ------------------------------------------------
+st.title("🌸 Objective 1: Demographic Profile")
 
 # --- 1. OBJECTIVE STATEMENT ---
 st.markdown("""
