@@ -160,7 +160,7 @@ fig.update_layout(yaxis={'categoryorder':'total ascending'},
 st.plotly_chart(fig, use_container_width=True)
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-<h5 style='color:#4a235a;'>🎓 Interpretation:</h5>
+<h5 style='color:#4a235a;'>Interpretation:</h5>
 <p style='color:#4a235a; margin-bottom:0;'>This chart shows the academic diversity of the sample.
 'Pharmacy' (23.1%) and 'Psychology' (17.9%) are the most represented fields in this dataset.</p>
 </div>
