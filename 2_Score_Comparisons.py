@@ -41,6 +41,23 @@ df = load_data()
 # ------------------------------------------------
 st.title("💜 Objective 2: Score Comparisons") 
 
+# --- DYNAMIC METRICS SECTION (UPDATED) ---
+# These values are now calculated directly from the dataset (df)
+
+# 1. Calculate the values
+total_respondents = len(df)
+avg_age = df['Age'].mean()
+avg_depression = df['PHQ-9 total'].mean()
+avg_insomnia = df['AIS total'].mean()
+
+# 2. Display the metrics
+col1, col2, col3, col4 = st.columns(4)
+col1.metric(label="Total Respondents", value=total_respondents)
+col2.metric(label="Average Age", value=f"{avg_age:.1f}")
+col3.metric(label="Avg. Depression Score", value=f"{avg_depression:.1f}")
+col4.metric(label="Avg. Insomnia Score", value=f"{avg_insomnia:.1f}")
+# --- END OF UPDATE ---
+
 # --- 1. OBJECTIVE STATEMENT ---
 st.markdown("""
 <div style='background-color:#f5e6fa; padding:15px; border-radius:12px; margin-bottom: 1.0em;'>
