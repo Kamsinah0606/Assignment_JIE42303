@@ -21,6 +21,13 @@ plt.rcParams['ytick.color'] = theme_text
 plt.rcParams['grid.color'] = '#f5e6fa' # Light purple grid
 sns.set_theme(style="whitegrid", rc=plt.rcParams)
 
+    col1, col2, col3, col4 = st.columns(4)
+    
+col1.metric(label="PLO 2", value=f"3.3", help="PLO 2: Cognitive Skill", border=True)
+col2.metric(label="PLO 3", value=f"3.5", help="PLO 3: Digital Skill", border=True)
+col3.metric(label="PLO 4", value=f"4.0", help="PLO 4: Interpersonal Skill", border=True)
+col4.metric(label="PLO 5", value=f"4.3", help="PLO 5: Communication Skill", border=True)
+
 # ------------------------------------------------
 # Data Loading Function (Simplified)
 # ------------------------------------------------
@@ -28,13 +35,6 @@ sns.set_theme(style="whitegrid", rc=plt.rcParams)
 def load_data():
     DATA_URL = "https://raw.githubusercontent.com/Kamsinah0606/Assignment_JIE42303/main/Insomnic%20.csv"
     df = pd.read_csv(DATA_URL)
-
-    col1, col2, col3, col4 = st.columns(4)
-    
-col1.metric(label="PLO 2", value=f"3.3", help="PLO 2: Cognitive Skill", border=True)
-col2.metric(label="PLO 3", value=f"3.5", help="PLO 3: Digital Skill", border=True)
-col3.metric(label="PLO 4", value=f"4.0", help="PLO 4: Interpersonal Skill", border=True)
-col4.metric(label="PLO 5", value=f"4.3", help="PLO 5: Communication Skill", border=True)
     
     df['Sex'] = df['Sex'].str.title()
     df['Economic status'] = df['Economic status'].replace({'Satisfy': 'Satisfied', 'Dissatisfy': 'Dissatisfied'})
