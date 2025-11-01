@@ -36,22 +36,12 @@ def load_data():
 
 df = load_data()
 
-# --- DYNAMIC METRICS SECTION (UPDATED) ---
-# These values are now calculated directly from the dataset (df)
-
-# 1. Calculate the values
-total_respondents = len(df)
-avg_age = df['Age'].mean()
-avg_depression = df['PHQ-9 total'].mean()
-avg_insomnia = df['AIS total'].mean()
-
-# 2. Display the metrics
 col1, col2, col3, col4 = st.columns(4)
-col1.metric(label="Total Respondents", value=total_respondents)
-col2.metric(label="Average Age", value=f"{avg_age:.1f}")
-col3.metric(label="Avg. Depression Score", value=f"{avg_depression:.1f}")
-col4.metric(label="Avg. Insomnia Score", value=f"{avg_insomnia:.1f}")
-# --- END OF UPDATE ---
+    
+col1.metric(label="PLO 2", value=f"3.3", help="PLO 2: Cognitive Skill", border=True)
+col2.metric(label="PLO 3", value=f"3.5", help="PLO 3: Digital Skill", border=True)
+col3.metric(label="PLO 4", value=f"4.0", help="PLO 4: Interpersonal Skill", border=True)
+col4.metric(label="PLO 5", value=f"4.3", help="PLO 5: Communication Skill", border=True)
 
 # ------------------------------------------------
 # Page 1: Demographic Profile
