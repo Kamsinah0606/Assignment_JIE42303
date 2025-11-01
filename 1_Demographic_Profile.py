@@ -39,15 +39,25 @@ df = load_data()
 # ------------------------------------------------
 # Page 1: Demographic Profile
 # ------------------------------------------------
-st.title("Objective 1: Demographic Profile")
+st.title("🌸 Objective 1: Demographic Profile")
 
-# --- PLO METRICS SECTION (FIXED INDENTATION) ---
+# --- DYNAMIC METRICS SECTION (UPDATED) ---
+# These values are now calculated directly from the dataset (df)
+
+# 1. Calculate the values
+total_respondents = len(df)
+avg_age = df['Age'].mean()
+avg_depression = df['PHQ-9 total'].mean()
+avg_insomnia = df['AIS total'].mean()
+
+# 2. Display the metrics
 col1, col2, col3, col4 = st.columns(4)
-col1.metric(label="PLO 2", value="3.3", help="PLO 2: Cognitive Skill")
-col2.metric(label="PLO 3", value="3.5", help="PLO 3: Digital Skill")
-col3.metric(label="PLO 4", value="4.0", help="PLO 4: Interpersonal Skill")
-col4.metric(label="PLO 5", value="4.3", help="PLO 5: Communication Skill")
-# --- END OF FIX ---
+col1.metric(label="Total Respondents", value=total_respondents)
+col2.metric(label="Average Age", value=f"{avg_age:.1f}")
+col3.metric(label="Avg. Depression Score", value=f"{avg_depression:.1f}")
+col4.metric(label="Avg. Insomnia Score", value=f"{avg_insomnia:.1f}")
+# --- END OF UPDATE ---
+
 
 # --- 1. OBJECTIVE STATEMENT ---
 st.markdown("""
@@ -62,7 +72,7 @@ A closer look at the demographic, economic, and academic profile of our survey r
 # --- 2. SUMMARY BOX (100-150 words) ---
 st.markdown("""
 <div style='background-color:#f3e5f5; padding:20px; border-radius:15px; border: 1px solid #d63384; margin-bottom: 1.0em;'>
-<h4 style='color:#4a235a;'>Objective 1 Summary</h4>
+<h4 style='color:#4a235a;'>🌼 Objective 1 Summary</h4>
 <p style='color:#4a235a; margin-bottom:0;'>
 This page profiles the 173 survey respondents from the cleaned dataset. The <b>Age Distribution</b> histogram confirms the sample aligns with the target population, showing a high concentration of young adults between 20-25. The <b>Gender Distribution</b> pie chart reveals a relatively balanced cohort, with female respondents (59.5%) slightly outnumbering male respondents (39.9%). The <b>Economic vs. Employment Status</b> chart provides key context by cross-referencing economic satisfaction with a simplified employment code (e.g., A = Unemployed, B = Part-time). The 'Satisfied' group is primarily composed of 'A' (Unemployed/Support), which is typical for full-time students. Finally, the <b>Field of Study</b> bar chart highlights the academic diversity, with 'Pharmacy' (23.1%) and 'Psychology' (17.9%) being the most common fields.
 </p>
@@ -83,7 +93,7 @@ ax.set_ylabel("Frequency")
 st.pyplot(fig)
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-<h5 style='color:#4a235a;'>Interpretation:</h5>
+<h5 style='color:#4a235a;'>📊 Interpretation:</h5>
 <p style='color:#4a235a; margin-bottom:0;'>The histogram shows that the majority of respondents are young adults,
 primarily concentrated between 20 and 25 years old. This aligns with the target
 population of university students.</p>
@@ -103,7 +113,7 @@ fig.update_layout(paper_bgcolor=theme_bg, plot_bgcolor=theme_bg, font_color=them
 st.plotly_chart(fig, use_container_width=True)
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-<h5 style='color:#4a235a;'>Interpretation:</h5>
+<h5 style='color:#4a235a;'>💬 Interpretation:</h5>
 <p style='color:#4a235a; margin-bottom:0;'>The gender ratio is relatively balanced, with a slightly higher
 proportion of female respondents (59.5% vs 39.9%). This ensures that the analysis can provide
 representative insights across genders.</p>
@@ -124,7 +134,7 @@ plt.legend(title="Employment Status (Simplified)")
 st.pyplot(fig)
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-<h5 style='color:#4a235a;'>Interpretation:</h5>
+<h5 style='color:#4a235a;'>📈 Interpretation:</h5>
 <p style='color:#4a235a; margin-bottom:0;'>This chart shows the count of students by their economic status, broken down by their simplified employment type.
 The 'Satisfied' group is numerically larger than the 'Dissatisfied' group. Within the 'Satisfied' group, category 'A' (Unemployed/Support) is the largest,
 which is expected for a student population.
@@ -151,7 +161,7 @@ fig.update_layout(yaxis={'categoryorder':'total ascending'},
 st.plotly_chart(fig, use_container_width=True)
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-<h5 style='color:#4a235a;'>Interpretation:</h5>
+<h5 style='color:#4a235a;'>🎓 Interpretation:</h5>
 <p style='color:#4a235a; margin-bottom:0;'>This chart shows the academic diversity of the sample.
 'Pharmacy' (23.1%) and 'Psychology' (17.9%) are the most represented fields in this dataset.</p>
 </div>
