@@ -34,11 +34,6 @@ def load_data():
 
 df = load_data()
 
-# ------------------------------------------------
-# PAGE 1: DEMOGRAPHIC PROFILE
-# ------------------------------------------------
-st.title("Objective 1: Demographic Profile")
-
 # ---- METRIC CARDS ----
 total_respondents = len(df)
 avg_age = df['Age'].mean()
@@ -50,6 +45,11 @@ col1.metric(label="Total Respondents", value=total_respondents)
 col2.metric(label="Average Age", value=f"{avg_age:.1f}")
 col3.metric(label="Avg. Depression Score", value=f"{avg_depression:.1f}")
 col4.metric(label="Avg. Insomnia Score", value=f"{avg_insomnia:.1f}")
+
+# ------------------------------------------------
+# PAGE 1: DEMOGRAPHIC PROFILE
+# ------------------------------------------------
+st.title("Objective 1: Demographic Profile")
 
 # ------------------------------------------------
 # OBJECTIVE STATEMENT
