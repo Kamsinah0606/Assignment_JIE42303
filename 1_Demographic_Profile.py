@@ -37,7 +37,7 @@ df = load_data()
 # ------------------------------------------------
 # PAGE 1: DEMOGRAPHIC PROFILE
 # ------------------------------------------------
-st.title("🌸 Objective 1: Demographic Profile")
+st.title("Objective 1: Demographic Profile")
 
 # ---- METRIC CARDS ----
 total_respondents = len(df)
@@ -70,7 +70,7 @@ and field of study.
 # ------------------------------------------------
 st.markdown("""
 <div style='background-color:#f3e5f5; padding:20px; border-radius:15px; border: 1px solid #d63384; margin-bottom: 1.0em;'>
-<h4 style='color:#4a235a;'>🌼 Objective 1 Summary</h4>
+<h4 style='color:#4a235a;'>Objective 1 Summary</h4>
 <p style='color:#4a235a; margin-bottom:0;'>
 The demographic analysis was conducted to provide an overview of the respondents’ 
 age, gender, and academic background. It was found that most participants were young adults 
@@ -102,7 +102,7 @@ st.pyplot(fig)
 
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-<h5 style='color:#4a235a;'>📊 Interpretation:</h5>
+<h5 style='color:#4a235a;'>Interpretation:</h5>
 <p style='color:#4a235a; margin-bottom:0;'>
 The histogram showed that most respondents were between 20 and 25 years old, 
 indicating that the sample mainly consisted of young adults. 
@@ -132,7 +132,7 @@ st.plotly_chart(fig, use_container_width=True)
 
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-<h5 style='color:#4a235a;'>💬 Interpretation:</h5>
+<h5 style='color:#4a235a;'>Interpretation:</h5>
 <p style='color:#4a235a; margin-bottom:0;'>
 The pie chart illustrated three gender categories: Female, Male, and 
 “I do not want to disclose.” Female respondents represented the largest portion of the sample, 
@@ -158,7 +158,7 @@ st.pyplot(fig)
 
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-<h5 style='color:#4a235a;'>📈 Interpretation:</h5>
+<h5 style='color:#4a235a;'>Interpretation:</h5>
 <p style='color:#4a235a; margin-bottom:0;'>
 The bar chart showed the distribution of students’ economic satisfaction by employment status. 
 It was found that the majority of respondents were economically satisfied and categorized under 
@@ -188,7 +188,7 @@ st.plotly_chart(fig, use_container_width=True)
 
 st.markdown("""
 <div style='background-color:#f5e6fa;padding:15px;border-radius:12px;'>
-<h5 style='color:#4a235a;'>🎓 Interpretation:</h5>
+<h5 style='color:#4a235a;'>Interpretation:</h5>
 <p style='color:#4a235a; margin-bottom:0;'>
 The bar chart showed the academic diversity of the sample. 
 The highest proportion of respondents was from the pharmacy field, followed by psychology. 
